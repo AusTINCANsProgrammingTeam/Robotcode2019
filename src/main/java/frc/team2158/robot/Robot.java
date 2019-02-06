@@ -14,7 +14,7 @@ import frc.team2158.robot.subsystem.drive.DriveSubsystem;
 import frc.team2158.robot.subsystem.drive.GearMode;
 import frc.team2158.robot.subsystem.drive.TalonSRXGroup;
 import frc.team2158.robot.subsystem.intake.IntakeSubsystem;
-import frc.team2158.robot.subsystem.lift.LiftSubsystem;
+import frc.team2158.robot.subsystem.lift.Arm;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
     private static final LoggingSystem LOGGING_SYSTEM = LoggingSystem.getInstance();
 
     private static DriveSubsystem driveSubsystem;
-    private static LiftSubsystem liftSubsystem;
+    private static Arm liftSubsystem;
     private static IntakeSubsystem intakeSubsystem;
 
     private static OperatorInterface operatorInterface;
@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
         );
         LOGGER.info("Drive Subsystem Initialized properly!");
         // Initialize the lift subsystem.
-        liftSubsystem = new LiftSubsystem(
+        liftSubsystem = new Arm(
             m_motor = new CANSparkMax(deviceID, MotorType.kBrushless)
            
                //new SpeedControllerGroup(
@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
      * Returns the instance of the lift subsystem.
      * @return the instance of the lift subsystem.
      */
-    public static LiftSubsystem getLiftSubsystem() {
+    public static Arm getLiftSubsystem() {
         if(liftSubsystem != null) {
             return liftSubsystem;
         }
@@ -194,7 +194,6 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHILE_HELD, new PivotDown());
         operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHILE_HELD, new PivotUp());
         Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
-        Scheduler.getInstance().add(new MoveLift());
     // Stretch Goal: Make the button bindings come from an xml/json config.
     //how would we implement such a system?
 }

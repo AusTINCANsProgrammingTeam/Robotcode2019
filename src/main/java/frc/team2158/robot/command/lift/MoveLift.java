@@ -2,7 +2,7 @@ package frc.team2158.robot.command.lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2158.robot.Robot;
-import frc.team2158.robot.subsystem.lift.LiftSubsystem;
+import frc.team2158.robot.subsystem.lift.Arm;
 
 import java.util.logging.Logger;
 /**
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public class MoveLift extends Command {
     private static final Logger LOGGER = Logger.getLogger(MoveLift.class.getName());
-    private LiftSubsystem.Direction direction;
+    private Arm.Direction direction;
     private double speed;
 
     /**
