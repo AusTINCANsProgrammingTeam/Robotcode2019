@@ -29,7 +29,7 @@ public class MoveLift extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.getLiftSubsystem().moveLift(direction, speed);
+        //Robot.getLiftSubsystem().moveLift(direction, speed);
     }
     /**
      * Runs the command

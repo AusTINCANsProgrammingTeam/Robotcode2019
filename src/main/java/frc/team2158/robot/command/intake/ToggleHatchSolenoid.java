@@ -11,14 +11,14 @@ import java.util.logging.Logger;
  * @version 0.0.1
  * Toggles the intake Solenoid
  */
-public class ToggleIntakeSolenoid extends Command {
-    private static final Logger LOGGER = Logger.getLogger(ToggleIntakeSolenoid.class.getName());
+public class ToggleHatchSolenoid extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ToggleHatchSolenoid.class.getName());
     private IntakeSubsystem intakeSubsystem;
 
     /**
      * Instantiates the command
      */
-    public ToggleIntakeSolenoid() {
+    public ToggleHatchSolenoid() {
         this.intakeSubsystem = Robot.getIntakeSubsystem();
     }
 

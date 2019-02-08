@@ -18,8 +18,10 @@ public class OperatorInterface {
     private static final Logger LOGGER = Logger.getLogger(OperatorInterface.class.getName());
     public enum ButtonMode {WHEN_PRESSED, CANCEL_WHEN_PRESSED, TOGGLE_WHEN_PRESSED, WHEN_RELEASED, WHILE_HELD}
 
-    private Joystick joystick;
-    private Map<String, Button> buttonMap;
+    private Joystick driveController;
+    private Joystick operatorController;
+    private Map<String, Button> buttonMapDriver;
+    private Map<String, Button> buttonMapOp;
     /**
      * Initializes the joystick and button map.
      *
@@ -27,21 +29,41 @@ public class OperatorInterface {
     public OperatorInterface() {
         // Initialize the joystick and button map.
         //Stretch Goal: Custom maps for different controllers?
-        this.joystick = new Joystick(1);
-        this.buttonMap = new HashMap<String, Button>() {{
-            put("buttonX", new JoystickButton(joystick, 1));
-            put("buttonA", new JoystickButton(joystick, 2));
-            put("buttonB", new JoystickButton(joystick, 3));
-            put("buttonY", new JoystickButton(joystick, 4));
-            put("buttonRB", new JoystickButton(joystick, 5));
-            put("buttonLB", new JoystickButton(joystick, 6));
-            put("buttonLT", new JoystickButton(joystick, 7));
-            put("buttonRT", new JoystickButton(joystick, 8));
-            put("buttonBack", new JoystickButton(joystick, 9));
-            put("buttonStart", new JoystickButton(joystick, 10));
-            put("buttonLeftJoystick", new JoystickButton(joystick, 11));
-            put("buttonRightJoystick", new JoystickButton(joystick, 12));
+        this.driveController = new Joystick(0);
+        this.operatorController = new Joystick(1);
+        this.buttonMapDriver = new HashMap<String, Button>() {{
+            put("buttonA", new JoystickButton(driveController, 1));
+            put("buttonB", new JoystickButton(driveController, 2));
+            put("buttonX", new JoystickButton(driveController, 3));
+            put("buttonY", new JoystickButton(driveController, 4));
+            put("buttonLB", new JoystickButton(driveController, 5));
+            put("buttonRB", new JoystickButton(driveController, 6));
+           // put("buttonLT", new JoystickButton(driveController, 7));
+            //put("buttonRT", new JoystickButton(driveController, 8));
+            put("buttonBack", new JoystickButton(driveController, 7));
+            put("buttonStart", new JoystickButton(driveController, 8));
+            put("buttonLeftJoystick", new JoystickButton(driveController, 9));
+            put("buttonRightJoystick", new JoystickButton(driveController, 10));
+            //left joystick X axis is 0, Y axis 1
+            //Right joy stick X axis is 4, Y axis 5
         }};
+        this.buttonMapOp = new HashMap<String, Button>() {{
+            put("button1", new JoystickButton(operatorController, 1));
+            put("button2", new JoystickButton(operatorController, 2));
+            put("button3", new JoystickButton(operatorController, 3));
+            put("button4", new JoystickButton(operatorController, 4));
+            put("buttonLB", new JoystickButton(operatorController, 5));
+            put("buttonRB", new JoystickButton(operatorController, 6));
+            put("buttonLT", new JoystickButton(operatorController, 7));
+            put("buttonRT", new JoystickButton(operatorController, 8));
+            put("buttonBack", new JoystickButton(operatorController, 9));
+            put("buttonStart", new JoystickButton(operatorController, 10));
+            put("buttonLeftJoystick", new JoystickButton(operatorController, 11));
+            put("buttonRightJoystick", new JoystickButton(operatorController, 12));
+            //left joystick X axis is 0, Y axis 1
+            //Right joy stick X axis is 2, Y axis 3
+        }};
+
     }
 
     /**
@@ -50,23 +72,44 @@ public class OperatorInterface {
      * @param mode What state the button should be for command execution.
      * @param command What the button will trigger when the ButtonMode is triggered
      */
-    public void bindButton(String button, ButtonMode mode, Command command) {
+    public void bindButton(String button, ButtonMode mode, Command command, int joystickNum) {
+        if(joystickNum == 0){
         switch(mode) {
             case WHEN_PRESSED:
-                buttonMap.get(button).whenPressed(command);
+                buttonMapDriver.get(button).whenPressed(command);
                 break;
             case CANCEL_WHEN_PRESSED:
-                buttonMap.get(button).cancelWhenPressed(command);
+                buttonMapDriver.get(button).cancelWhenPressed(command);
                 break;
             case TOGGLE_WHEN_PRESSED:
-                buttonMap.get(button).toggleWhenPressed(command);
+                buttonMapDriver.get(button).toggleWhenPressed(command);
                 break;
             case WHEN_RELEASED:
-                buttonMap.get(button).whenReleased(command);
+                buttonMapDriver.get(button).whenReleased(command);
                 break;
             case WHILE_HELD:
-                buttonMap.get(button).whileHeld(command);
+                buttonMapDriver.get(button).whileHeld(command);
                 break;
+        }
+    }
+        else if(joystickNum == 1){
+            switch(mode) {
+                case WHEN_PRESSED:
+                    buttonMapOp.get(button).whenPressed(command);
+                    break;
+                case CANCEL_WHEN_PRESSED:
+                    buttonMapOp.get(button).cancelWhenPressed(command);
+                    break;
+                case TOGGLE_WHEN_PRESSED:
+                    buttonMapOp.get(button).toggleWhenPressed(command);
+                    break;
+                case WHEN_RELEASED:
+                    buttonMapOp.get(button).whenReleased(command);
+                    break;
+                case WHILE_HELD:
+                    buttonMapOp.get(button).whileHeld(command);
+                    break;
+            }
         }
     }
 
@@ -74,16 +117,20 @@ public class OperatorInterface {
      * Returns the instance of the Joystick.
      * @return the instance of the Joystick.
      */
-    public Joystick getJoystick() {
-        return joystick;
+    public Joystick getDriveController() {
+        return driveController;
     }
-
+    
+    public Joystick getOperatorController()
+    {
+        return operatorController;
+    }
     /**
      * Returns the instance of the button named
      * @param name Name of the button
      * @return the instance of the button named
      */
     public Button getButtonByName(String name) {
-        return buttonMap.get(name);
+        return buttonMapDriver.get(name);
     }
 }

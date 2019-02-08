@@ -21,7 +21,7 @@ public class IntakeSubsystem extends Subsystem {
 
     private static final double DEFAULT_INTAKE_SPEED = 0.75;
     private static final double DEFAULT_INTAKE_SPEED_IN = 1.0;
-    private static final double DEFAULT_INTAKE_SPEED_OUT = 0.45;
+    private static final double DEFAULT_INTAKE_SPEED_OUT = 0.75;
 
     private static final double DEFAULT_PIVOT_SPEED = 0.75;
 

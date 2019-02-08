@@ -29,7 +29,7 @@ public class OperatorControl extends Command {
     public OperatorControl(DriveMode driveMode) {
         this.driveMode = driveMode;
         this.driveSubsystem = Robot.getDriveSubsystem();
-        this.joystick = Robot.getOperatorInterface().getJoystick();
+        this.joystick = Robot.getOperatorInterface().getDriveController();
     }
 
     @Override
