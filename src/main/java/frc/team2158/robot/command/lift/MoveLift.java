@@ -36,7 +36,7 @@ public class MoveLift extends Command {
      */
     @Override
     protected void execute() {
-        Robot.getLiftSubsystem().moveLift(direction, speed);
+        Robot.getLiftSubsystem().moveLift();
     }
 
     @Override

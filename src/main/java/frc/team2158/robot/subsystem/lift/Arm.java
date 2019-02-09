@@ -42,12 +42,11 @@ public class Arm extends Subsystem {
         // Encoder object created to display position values
         m_encoder = controller.getEncoder();
         rotations = m_encoder.getPosition();
-        if (rotations < -0.45)
+        /*if (rotations < -0.45)
         {
             rotations = -.45;
         }
-        m_pidController.setReference(rotations, ControlType.kPosition);
-        SmartDashboard.putNumber("SetPoint", rotations);
+        m_pidController.setReference(rotations, ControlType.kPosition);*/
     
         // PID coefficients
         kP = 0.1; 
@@ -93,22 +92,38 @@ public class Arm extends Subsystem {
      * @param direction Direction specified.
      * @param speed Speed specified.
      */
-    public void moveLift(Direction direction, double speed) {
+    public void moveLift() {
                 if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
                     if(rotations > -130){
                          rotations = rotations - 1.05;
                     }
+                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    LOGGER.warning("moveLift stick Up");
                     m_pidController.setReference(rotations, ControlType.kPosition);
-                    SmartDashboard.putNumber("SetPoint", rotations);
-                    SmartDashboard.putNumber("ProcessVariable", m_encoder.getPosition());
                 }
                 else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
                     if(rotations < -2){
                         rotations = rotations + 1.05;
                     }
+                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
-                    SmartDashboard.putNumber("SetPoint", rotations);
                 }
+    }
+    public void moveLiftPos(Direction direction){
+        switch(direction){
+            case UP:
+                //rotations = -130;
+                //m_pidController.setReference(rotations, ControlType.kPosition);
+                LOGGER.warning("moveLiftPos Up");
+                break;
+            case DOWN:
+                //rotations = -2;
+                //m_pidController.setReference(rotations, ControlType.kPosition);
+                LOGGER.warning("moveLiftPos Down");
+
+                break;
+
+        }
     }
     /**
      * Stops the lift by setting the speed to zero.
@@ -118,10 +133,18 @@ public class Arm extends Subsystem {
     }
 
     public void resetPos(){
-      //  m_encoder.setPosition(0);
+       //m_pidController.setReference(0, ControlType.kPosition);
        //rotations = 0;
-       //SmartDashboard.putNumber("SetPoint", rotations);
+       //m_encoder.setPosition(0);
        //LOGGER.warning("encoderPos: "+ Double.toString(m_encoder.getPosition()));
+    }
+
+    public double getPos(){
+       return  m_encoder.getPosition();
+    }
+
+    public double getRotations(){
+        return rotations;
     }
     
     @Override

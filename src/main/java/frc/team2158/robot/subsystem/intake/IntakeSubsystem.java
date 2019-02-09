@@ -64,6 +64,17 @@ public class IntakeSubsystem extends Subsystem {
 
         }
     }
+    public void runIntakeHalfSpeed(IntakeDirection direction){
+        switch(direction){
+            case IN:
+                leftSpeedController.set(-DEFAULT_INTAKE_SPEED/2);
+                break;
+            case OUT:
+                leftSpeedController.set(DEFAULT_INTAKE_SPEED/2);
+                break;
+        }
+    }
+
 
     /**
      * Stops the intake by setting the speed controllers to 0.0

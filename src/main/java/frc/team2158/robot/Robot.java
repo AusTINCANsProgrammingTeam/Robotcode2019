@@ -11,6 +11,8 @@ import frc.team2158.robot.command.drive.OperatorControl;
 import frc.team2158.robot.command.drive.ToggleGearMode;
 import frc.team2158.robot.command.intake.*;
 import frc.team2158.robot.command.lift.MoveLift;
+import frc.team2158.robot.command.lift.MoveLiftDown;
+import frc.team2158.robot.command.lift.MoveLiftUp;
 import frc.team2158.robot.subsystem.drive.DriveSubsystem;
 import frc.team2158.robot.subsystem.drive.GearMode;
 import frc.team2158.robot.subsystem.drive.TalonSRXGroup;
@@ -117,6 +119,7 @@ public class Robot extends TimedRobot {
         // Initialize the operator interface.
         operatorInterface = new OperatorInterface();
 
+
         LOGGER.info("Robot initialization completed.");
     }
 
@@ -194,10 +197,14 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonRB", OperatorInterface.ButtonMode.WHILE_HELD, new Intake(),1);
         operatorInterface.bindButton("buttonRT", OperatorInterface.ButtonMode.WHILE_HELD, new Outtake(), 1);
         operatorInterface.bindButton("button2", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 1);
+        operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftUp(), 1);
+        operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
        // operatorInterface.bindButton("buttonRB", OperatorInterface.ButtonMode.WHILE_HELD, new MoveLift(LiftSubsystem.Direction.UP, LiftSubsystem.DEFAULT_LIFT_UP_SPEED));
         //operatorInterface.bindButton("buttonRT", OperatorInterface.ButtonMode.WHILE_HELD, new MoveLift(LiftSubsystem.Direction.DOWN, LiftSubsystem.DEFAULT_LIFT_DOWN_SPEED));
         //operatorInterface.bindButton("buttonX", OperatorInterface.ButtonMode.WHILE_HELD, new CounterClockwise(), 1);
         //operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.WHILE_HELD, new Clockwise(), 1);
+        operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
+        operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonA", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
         //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHILE_HELD, new PivotDown(), 1);
         //operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHILE_HELD, new PivotUp(), 1);
@@ -253,6 +260,8 @@ public class Robot extends TimedRobot {
 
                 break;
         }
+        SmartDashboard.putNumber("SetPoint", liftSubsystem.getRotations());
+       SmartDashboard.putNumber("ProcessVariable", liftSubsystem.getPos());
 
 
     }
