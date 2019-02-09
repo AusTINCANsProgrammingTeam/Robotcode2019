@@ -24,6 +24,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.team2158.robot.subsystem.lift.Arm;
+import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpClient;
+import io.vertx.core.http.HttpServer;
 
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
@@ -48,6 +51,8 @@ public class Robot extends TimedRobot {
     private static OperatorInterface operatorInterface;
     private Spark blinkin = new Spark(6);
     private static final int deviceID = 9;
+
+    static HttpClient httpClient;
     
     @Override
     public void disabledInit() {
@@ -59,6 +64,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        httpClient = Vertx.vertx().createHttpClient();
         // Initialize the auto chooser system
         autoChooser = new SendableChooser<>();
         autoChooser.addObject("0.0", 0.0);
@@ -129,6 +135,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        WebsocketStuff.startWebsocket();
         timer.reset();
         timer.start();
     }
