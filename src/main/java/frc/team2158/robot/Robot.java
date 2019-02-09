@@ -82,15 +82,15 @@ public class Robot extends TimedRobot {
 
         // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
-                new TalonSRXGroup(
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_1), // This motor is the master for the left side.
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_2),
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_3)
+                new SpeedControllerGroup(
+                        new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
+                        new CANSparkMax(RobotMap.LEFT_MOTOR_2, MotorType.kBrushless),
+                        new CANSparkMax(RobotMap.LEFT_MOTOR_3, MotorType.kBrushless)
                 ),
-                new TalonSRXGroup(
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_1), // This motor is the master for the right side.
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_2),
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_3)
+                new SpeedControllerGroup(
+                        new CANSparkMax(RobotMap.RIGHT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
+                        new CANSparkMax(RobotMap.RIGHT_MOTOR_2, MotorType.kBrushless),
+                        new CANSparkMax(RobotMap.RIGHT_MOTOR_3, MotorType.kBrushless)
                 ),
                 new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
                         RobotMap.GEARBOX_REVERSE_CHANNEL)
