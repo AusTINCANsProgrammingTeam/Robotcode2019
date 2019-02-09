@@ -94,7 +94,7 @@ public class Arm extends Subsystem {
      */
     public void moveLift() {
                 if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
-                    if(rotations > -130){
+                    if(rotations > -120){
                          rotations = rotations - 1.05;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
@@ -102,23 +102,24 @@ public class Arm extends Subsystem {
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
                 else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
-                    if(rotations < -2){
+                    if(rotations < 0){
                         rotations = rotations + 1.05;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
     }
+    
     public void moveLiftPos(Direction direction){
         switch(direction){
             case UP:
-                //rotations = -130;
-                //m_pidController.setReference(rotations, ControlType.kPosition);
+                rotations = -120;
+                m_pidController.setReference(rotations, ControlType.kPosition);
                 LOGGER.warning("moveLiftPos Up");
                 break;
             case DOWN:
-                //rotations = -2;
-                //m_pidController.setReference(rotations, ControlType.kPosition);
+                rotations = 0;
+                m_pidController.setReference(rotations, ControlType.kPosition);
                 LOGGER.warning("moveLiftPos Down");
 
                 break;
@@ -133,10 +134,10 @@ public class Arm extends Subsystem {
     }
 
     public void resetPos(){
-       //m_pidController.setReference(0, ControlType.kPosition);
-       //rotations = 0;
-       //m_encoder.setPosition(0);
-       //LOGGER.warning("encoderPos: "+ Double.toString(m_encoder.getPosition()));
+       m_pidController.setReference(0, ControlType.kPosition);
+       rotations = 0;
+       m_encoder.setPosition(0);
+       LOGGER.warning("encoderPos: "+ Double.toString(m_encoder.getPosition()));
     }
 
     public double getPos(){
