@@ -9,5 +9,7 @@
     "bin/": true,
     ".classpath": true,
     ".project": true
-  }
+  },
+  "java.home": "C:\\ProgramFiles\\Java\\jdk-11.0.2"
+
 }
