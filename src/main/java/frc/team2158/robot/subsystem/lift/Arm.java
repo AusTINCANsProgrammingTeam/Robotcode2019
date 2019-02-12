@@ -1,6 +1,7 @@
 package frc.team2158.robot.subsystem.lift;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,6 +13,8 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Joystick;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANDigitalInput;
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 
 import java.util.logging.Logger;
 /**
@@ -29,6 +32,8 @@ public class Arm extends Subsystem {
     public static double DEFAULT_LIFT_DOWN_SPEED = 0.75;
     private CANPIDController m_pidController;
     private CANEncoder m_encoder;
+    private CANDigitalInput upLimit;
+    private CANDigitalInput downLimit;
     private static double rotations;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
     /**
@@ -39,6 +44,8 @@ public class Arm extends Subsystem {
     public Arm(CANSparkMax controller) {
         this.liftSpeedController = controller;
         m_pidController = controller.getPIDController();
+        upLimit = controller.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+        downLimit = controller.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         // Encoder object created to display position values
         m_encoder = controller.getEncoder();
         rotations = m_encoder.getPosition();
@@ -151,5 +158,15 @@ public class Arm extends Subsystem {
     @Override
     protected void initDefaultCommand() {
        setDefaultCommand(new MoveLift());
+    }
+
+    public boolean getUpLimit()
+    {
+        return upLimit.get();
+    }
+
+    public boolean getDownLimit()
+    {
+        return downLimit.get();
     }
 }
