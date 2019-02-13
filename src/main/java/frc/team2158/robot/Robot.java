@@ -52,6 +52,13 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         liftSubsystem.resetPos();
+        SmartDashboard.putBoolean("UpLimit", liftSubsystem.getUpLimit());
+        SmartDashboard.putBoolean("DownLimit", liftSubsystem.getDownLimit());
+    }
+    @Override
+    public void disabledPeriodic(){
+        SmartDashboard.putBoolean("UpLimit", liftSubsystem.getUpLimit());
+        SmartDashboard.putBoolean("DownLimit", liftSubsystem.getDownLimit());
     }
 
     /**

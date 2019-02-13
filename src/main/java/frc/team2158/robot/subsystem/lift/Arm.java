@@ -56,7 +56,7 @@ public class Arm extends Subsystem {
         m_pidController.setReference(rotations, ControlType.kPosition);*/
     
         // PID coefficients
-        kP = 0.1; 
+        kP = 1; 
         kI = 1e-4;
         kD = 1; 
         kIz = 0; 
@@ -101,16 +101,16 @@ public class Arm extends Subsystem {
      */
     public void moveLift() {
                 if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
-                    if(rotations > -120){
-                         rotations = rotations - 1.05;
+                    if(rotations < 120 && upLimit.get() == false){
+                         rotations = rotations + 1.05;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     LOGGER.warning("moveLift stick Up");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
                 else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
-                    if(rotations < 0){
-                        rotations = rotations + 1.05;
+                    if(rotations > 0 && downLimit.get() == false){
+                        rotations = rotations - 1.05;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
@@ -120,15 +120,18 @@ public class Arm extends Subsystem {
     public void moveLiftPos(Direction direction){
         switch(direction){
             case UP:
-                rotations = -120;
+                if(upLimit.get() == false){
+                rotations = 120;
                 m_pidController.setReference(rotations, ControlType.kPosition);
                 LOGGER.warning("moveLiftPos Up");
+            }
                 break;
             case DOWN:
+                if(downLimit.get() == false){
                 rotations = 0;
                 m_pidController.setReference(rotations, ControlType.kPosition);
                 LOGGER.warning("moveLiftPos Down");
-
+            }
                 break;
 
         }
