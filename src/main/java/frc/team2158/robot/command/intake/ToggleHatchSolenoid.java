@@ -29,6 +29,7 @@ public class ToggleHatchSolenoid extends Command {
     protected void execute() {
         intakeSubsystem.toggleSolenoidState();
         LOGGER.info("Solenoid has been toggled!");
+        
     }
 
     @Override

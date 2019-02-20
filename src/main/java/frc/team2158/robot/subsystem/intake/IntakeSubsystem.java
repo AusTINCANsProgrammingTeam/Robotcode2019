@@ -3,7 +3,7 @@ package frc.team2158.robot.subsystem.intake;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2158.robot.command.intake.StopIntakeAndPivot;
+import frc.team2158.robot.command.intake.StopIntake;
 
 import java.util.logging.Logger;
 /**
@@ -37,11 +37,8 @@ public class IntakeSubsystem extends Subsystem {
      * @param pivotSpeedController Speed Controller
      * @param solenoid Solenoid to be used.
      */
-    public IntakeSubsystem(SpeedController leftSpeedController, SpeedController rightSpeedController,
-                           SpeedController pivotSpeedController, DoubleSolenoid solenoid) {
-        this.leftSpeedController = leftSpeedController;
-        this.rightSpeedController = rightSpeedController;
-        this.pivotSpeedController = pivotSpeedController;
+    public IntakeSubsystem(SpeedController intakeSpeedController,DoubleSolenoid solenoid) {
+
         this.solenoid = solenoid;
         setDoubleSolenoidState(DoubleSolenoid.Value.kForward);
         LOGGER.info("Intake subsystem initialization complete!");
@@ -55,11 +52,9 @@ public class IntakeSubsystem extends Subsystem {
         switch(direction) {
             case IN:
                 leftSpeedController.set(-DEFAULT_INTAKE_SPEED_IN);
-                rightSpeedController.set(DEFAULT_INTAKE_SPEED_IN);
                 break;
             case OUT:
                 leftSpeedController.set(DEFAULT_INTAKE_SPEED_OUT);
-                rightSpeedController.set(-DEFAULT_INTAKE_SPEED_OUT);
                 break;
 
         }
@@ -142,6 +137,6 @@ public class IntakeSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new StopIntakeAndPivot());
+        setDefaultCommand(new StopIntake());
     }
 }

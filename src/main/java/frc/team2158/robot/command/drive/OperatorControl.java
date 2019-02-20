@@ -2,9 +2,7 @@ package frc.team2158.robot.command.drive;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.team2158.robot.OperatorInterface;
 import frc.team2158.robot.Robot;
-import frc.team2158.robot.RobotMap;
 import frc.team2158.robot.subsystem.drive.DriveSubsystem;
 
 import java.util.logging.Logger;
