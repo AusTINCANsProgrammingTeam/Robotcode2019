@@ -2,14 +2,16 @@ package frc.team2158.robot.subsystem.lift;
 
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2158.robot.Robot;
 import frc.team2158.robot.command.lift.MoveLift;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.Joystick;
 import com.revrobotics.ControlType;
-import com.revrobotics.CANDigitalInput;
-import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import java.util.logging.Logger;
 /**
@@ -51,7 +53,7 @@ public class Arm extends Subsystem {
         m_pidController.setReference(rotations, ControlType.kPosition);*/
     
         // PID coefficients
-        kP = 1; 
+        kP = 1;
         kI = 1e-4;
         kD = 1; 
         kIz = 0; 
@@ -111,7 +113,6 @@ public class Arm extends Subsystem {
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
     }
-    
     public void moveLiftPos(Direction direction){
         switch(direction){
             case UP:
