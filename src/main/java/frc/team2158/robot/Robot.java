@@ -13,7 +13,8 @@ import frc.team2158.robot.command.lift.MoveLiftDown;
 import frc.team2158.robot.command.lift.MoveLiftUp;
 import frc.team2158.robot.subsystem.drive.DriveSubsystem;
 import frc.team2158.robot.subsystem.drive.GearMode;
-import frc.team2158.robot.subsystem.drive.TalonSRXGroup;
+import frc.team2158.robot.subsystem.drive.StopSubsystem;
+import frc.team2158.robot.subsystem.drive.StopSubsystem.StopDirection;
 import frc.team2158.robot.subsystem.intake.IntakeSubsystem;
 import frc.team2158.robot.subsystem.lift.Arm;
 import com.revrobotics.CANSparkMax;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
     private static DriveSubsystem driveSubsystem;
     private static Arm liftSubsystem;
     private static IntakeSubsystem intakeSubsystem;
+    private static StopSubsystem stopSubsystem;
 
     private static OperatorInterface operatorInterface;
     private Spark blinkin = new Spark(6);
@@ -61,29 +63,33 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
-                new TalonSRXGroup(
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_1), // This motor is the master for the left side.
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_2),
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_3)
-                ),
-                new TalonSRXGroup(
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_1), // This motor is the master for the right side.
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_2),
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_3)
-                ),
-                new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
-                        RobotMap.GEARBOX_REVERSE_CHANNEL)
-        );
+            new SpeedControllerGroup(
+                new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
+                new CANSparkMax(RobotMap.LEFT_MOTOR_2, MotorType.kBrushless),
+                new CANSparkMax(RobotMap.LEFT_MOTOR_3, MotorType.kBrushless)
+        ),
+        new SpeedControllerGroup(
+                new CANSparkMax(RobotMap.RIGHT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
+                new CANSparkMax(RobotMap.RIGHT_MOTOR_2, MotorType.kBrushless),
+                new CANSparkMax(RobotMap.RIGHT_MOTOR_3, MotorType.kBrushless)
+        ),
+        new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
+                RobotMap.GEARBOX_REVERSE_CHANNEL)
+);
+        
         LOGGER.info("Drive Subsystem Initialized properly!");
         // Initialize the lift subsystem.
         liftSubsystem = new Arm(
             new CANSparkMax(RobotMap.ARM_MOTOR, MotorType.kBrushless)
         );
         LOGGER.info("Lift Subsystem Initialized properly!");
+        stopSubsystem = new StopSubsystem(
+            new DoubleSolenoid(RobotMap.HARD_STOP_FOWARD, RobotMap.HARD_STOP_BACK)
+        );
         // Initialize the intake subsystem.
         intakeSubsystem = new IntakeSubsystem(
                 new Spark(RobotMap.LEFT_INTAKE_MOTOR),
-                new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.INTAKE_SOLENOID_1, RobotMap.INTAKE_SOLENOID_2)
+                new DoubleSolenoid(RobotMap.INTAKE_SOLENOID_FOWARD, RobotMap.INTAKE_SOLENOID_REVERSE)
         );
         LOGGER.info("Intake Subsystem Initialized properly!");
         // Initialize the operator interface.
@@ -91,6 +97,9 @@ public class Robot extends TimedRobot {
 
 
         LOGGER.info("Robot initialization completed.");
+
+        //raise the hard stop
+        stopSubsystem.raiseStop(StopDirection.UP);
     }
 
     /**
@@ -98,7 +107,8 @@ public class Robot extends TimedRobot {
      * @return the instance of the drive subsystem.
      */
     @Override
-    public void autonomousInit() {}
+    public void autonomousInit() {
+    }
 
     @Override
     public void autonomousPeriodic() {}
@@ -130,6 +140,12 @@ public class Robot extends TimedRobot {
             return intakeSubsystem;
         }
         throw new RuntimeException("Intake subsystem has not yet been initialized!");
+    }
+    public static StopSubsystem getStopSubsystem(){
+        if(stopSubsystem != null){
+            return stopSubsystem;
+        }
+        throw new RuntimeException("Stop susbsystem has not been initialized!");
     }
 
     /**
