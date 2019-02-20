@@ -22,12 +22,16 @@ public class RobotMap {
     public static final int GEARBOX_REVERSE_CHANNEL = 1;
 
     // Lift motors Sparks.
-    public static final int ARM_MOTOR = 9;
+    public static final int ARM_MOTOR = 7;
+    public static final int HARD_STOP_FOWARD = 2;
+    public static final int HARD_STOP_BACK = 5;
+
+
 
     // Intake motors and pneumatics.
     public static final int LEFT_INTAKE_MOTOR = 3;
-    public static final int INTAKE_SOLENOID_1 = 2;
-    public static final int INTAKE_SOLENOID_2 = 3;
+    public static final int INTAKE_SOLENOID_FOWARD = 2;
+    public static final int INTAKE_SOLENOID_REVERSE = 3;
 
     // Port for the joystick.
     //Stretch Goal: Move this out and make a XML based input config system.
