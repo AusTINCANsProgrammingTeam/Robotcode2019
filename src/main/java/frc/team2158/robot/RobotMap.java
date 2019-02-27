@@ -8,16 +8,6 @@ package frc.team2158.robot;
  */
 public class RobotMap {
     // Drive base motor channels.
- /*   public static final int LEFT_MOTOR_1 = 2;
-    public static final int LEFT_MOTOR_2 = 3;
-    public static final int LEFT_MOTOR_3 = 4;
-    public static final int RIGHT_MOTOR_1 = 5;
-    public static final int RIGHT_MOTOR_2 = 6;
-    public static final int RIGHT_MOTOR_3 = 7;*/
-
-
-
-    //TODO THESE VALUES ARE FOR THE PRACTICE ROBOT - THE TALON IDS ARE REVERSED
     public static final int LEFT_MOTOR_1 = 6;
     public static final int LEFT_MOTOR_2 = 8;
     public static final int LEFT_MOTOR_3 = 5;
@@ -28,25 +18,23 @@ public class RobotMap {
 
     public static final int ARM_MOTOR = 7;
     
-    public static final int SELF_LIFT_MOTOR = 4;
+    public static final int SELF_LIFT_MOTOR = 12;
 
     public static final int HARD_STOP_FOWARD = 2;
     public static final int HARD_STOP_BACK = 5;
 
     // Pneumatic system.
-    public static final int PCM_ADDRESS = 1;
+    public static final int PCM_ADDRESS = 01;
     public static final int GEARBOX_FORWARD_CHANNEL = 0;
     public static final int GEARBOX_REVERSE_CHANNEL = 7;
 
     // Lift motors Sparks.
-    public static final int LIFT_MOTOR_1 = 9;
-    public static final int LIFT_MOTOR_2 = 1;
-    public static final int LIFT_MOTOR_3 = 2;
+    //public static final int LIFT_MOTOR_1 = 9;
+    //public static final int LIFT_MOTOR_2 = 1;
+    //public static final int LIFT_MOTOR_3 = 2;
 
     // Intake motors and pneumatics.
     public static final int LEFT_INTAKE_MOTOR = 0;
-    public static final int RIGHT_INTAKE_MOTOR = 4;
-    public static final int PIVOT_INTAKE_MOTOR = 5;
     public static final int INTAKE_SOLENOID_FOWARD = 1;
     public static final int INTAKE_SOLENOID_REVERSE = 6;
 

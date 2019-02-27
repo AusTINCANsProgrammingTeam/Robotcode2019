@@ -61,8 +61,8 @@ public class Arm extends Subsystem {
         kD = 1; 
         kIz = 0; 
         kFF = 0; 
-        kMaxOutput = 1; 
-        kMinOutput = -1;
+        kMaxOutput = .5; 
+        kMinOutput = -.5;
     
         // set PID coefficients
         m_pidController.setP(kP);

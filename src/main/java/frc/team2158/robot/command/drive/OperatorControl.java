@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class OperatorControl extends Command {
     //motion code here
-
+    private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
     private DriveMode driveMode;
     private DriveSubsystem driveSubsystem;
     private Joystick joystick;
@@ -32,6 +32,7 @@ public class OperatorControl extends Command {
 
     @Override
     public void execute() {
+        LOGGER.warning(Double.toString(joystick.getRawAxis(1))+ ", " + Double.toString(joystick.getRawAxis(4)));
         switch(driveMode) {
             case TANK:
                 driveSubsystem.tankDrive(joystick.getRawAxis(0), joystick.getRawAxis(1));

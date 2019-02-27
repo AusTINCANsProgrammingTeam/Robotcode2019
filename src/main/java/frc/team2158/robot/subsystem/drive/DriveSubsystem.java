@@ -78,6 +78,9 @@ public class DriveSubsystem extends Subsystem {
             case LOW:
                 gearMode = GearMode.HIGH;
                 break;
+            default:
+                gearMode = GearMode.LOW;
+                break;
                 //default case? (in case of accidentally using it before setGearMode())
         }
         updateGearMode();

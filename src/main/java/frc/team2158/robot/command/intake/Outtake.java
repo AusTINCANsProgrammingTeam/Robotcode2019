@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 /**
  * @author William Blount
  * @version 0.0.1
- * Runs the intake wheels to eject the cube.
+ * Runs the intake wheels to eject the ball.
  */
 public class Outtake extends Command {
     private static final Logger LOGGER = Logger.getLogger(Outtake.class.getName());

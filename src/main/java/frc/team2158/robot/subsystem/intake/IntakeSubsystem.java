@@ -26,7 +26,6 @@ public class IntakeSubsystem extends Subsystem {
     private static final double DEFAULT_PIVOT_SPEED = 0.75;
 
     private SpeedController leftSpeedController;
-    private SpeedController rightSpeedController;
     private SpeedController pivotSpeedController;
     private DoubleSolenoid solenoid;
 
@@ -38,7 +37,7 @@ public class IntakeSubsystem extends Subsystem {
      * @param solenoid Solenoid to be used.
      */
     public IntakeSubsystem(SpeedController intakeSpeedController,DoubleSolenoid solenoid) {
-
+        this.leftSpeedController = intakeSpeedController;
         this.solenoid = solenoid;
         setDoubleSolenoidState(DoubleSolenoid.Value.kForward);
         LOGGER.info("Intake subsystem initialization complete!");
@@ -76,7 +75,6 @@ public class IntakeSubsystem extends Subsystem {
      */
     public void stopIntake() {
         leftSpeedController.set(0.0);
-        rightSpeedController.set(0.0);
     }
 
     public void stopIntakeAndPivot(){
