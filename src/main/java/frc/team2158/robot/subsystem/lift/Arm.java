@@ -27,7 +27,7 @@ public class Arm extends Subsystem {
 
     public enum Direction {UP, DOWN}
 
-    private SpeedController liftSpeedController;
+    private CANSparkMax liftSpeedController;
     public static double DEFAULT_LIFT_UP_SPEED = 1.0;
     public static double DEFAULT_LIFT_DOWN_SPEED = 0.75;
     private CANPIDController m_pidController;
@@ -41,13 +41,13 @@ public class Arm extends Subsystem {
      * @param controller controller to be initialized.
      * @param inverted If the lift is inverted or not
      */
-    public Arm(CANSparkMax controller) {
-        this.liftSpeedController = controller;
-        m_pidController = controller.getPIDController();
-        upLimit = controller.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-        downLimit = controller.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+    public Arm(CANSparkMax liftSpeedController) {
+        this.liftSpeedController = liftSpeedController;
+        m_pidController = liftSpeedController.getPIDController();
+        upLimit = liftSpeedController.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+        downLimit = liftSpeedController.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         // Encoder object created to display position values
-        m_encoder = controller.getEncoder();
+        m_encoder = liftSpeedController.getEncoder();
         rotations = m_encoder.getPosition();
         /*if (rotations < -0.45)
         {
@@ -56,9 +56,9 @@ public class Arm extends Subsystem {
         m_pidController.setReference(rotations, ControlType.kPosition);*/
     
         // PID coefficients
-        kP = 1;
-        kI = 1e-4;
-        kD = 1; 
+        kP = 5e-5;
+        kI = 1e-6;
+        kD = 0; 
         kIz = 0; 
         kFF = 0; 
         kMaxOutput = .5; 
@@ -101,15 +101,15 @@ public class Arm extends Subsystem {
      */
     public void moveLift() {
                 if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
-                    if(rotations < 120 && upLimit.get() == false){
+                    if(rotations < 120){
                          rotations = rotations + 1.05;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
-                    LOGGER.warning("moveLift stick Up");
+                    //LOGGER.warning(rotations + "");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
                 else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
-                    if(rotations > 0 && downLimit.get() == false){
+                    if(rotations > 0){
                         rotations = rotations - 1.05;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
@@ -119,14 +119,14 @@ public class Arm extends Subsystem {
     public void moveLiftPos(Direction direction){
         switch(direction){
             case UP:
-                if(upLimit.get() == false){
+                if(false == false){
                 rotations = 120;
                 m_pidController.setReference(rotations, ControlType.kPosition);
                 LOGGER.warning("moveLiftPos Up");
             }
                 break;
             case DOWN:
-                if(downLimit.get() == false){
+                if(false == false){
                 rotations = 0;
                 m_pidController.setReference(rotations, ControlType.kPosition);
                 LOGGER.warning("moveLiftPos Down");
@@ -164,11 +164,13 @@ public class Arm extends Subsystem {
 
     public boolean getUpLimit()
     {
-        return upLimit.get();
+        return false;
+        //return upLimit.get();
     }
 
     public boolean getDownLimit()
     {
-        return downLimit.get();
+        return false;
+        //return downLimit.get();
     }
 }

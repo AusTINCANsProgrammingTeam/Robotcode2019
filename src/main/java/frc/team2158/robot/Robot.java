@@ -18,6 +18,7 @@ import frc.team2158.robot.subsystem.lift.Arm;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.cscore.UsbCamera;
+import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
 
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
@@ -66,12 +67,12 @@ public class Robot extends TimedRobot {
         camera.setResolution(640, 480);
         // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
-            new SpeedControllerGroup(
+            new SparkMaxGroup(
                 new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
                 new CANSparkMax(RobotMap.LEFT_MOTOR_2, MotorType.kBrushless),
                 new CANSparkMax(RobotMap.LEFT_MOTOR_3, MotorType.kBrushless)
         ),
-        new SpeedControllerGroup(
+        new SparkMaxGroup(
                 new CANSparkMax(RobotMap.RIGHT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the right side.
                 new CANSparkMax(RobotMap.RIGHT_MOTOR_2, MotorType.kBrushless),
                 new CANSparkMax(RobotMap.RIGHT_MOTOR_3, MotorType.kBrushless)
@@ -199,7 +200,7 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonA", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
         
-        Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
+        //Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
         
         getStopSubsystem().raiseStop(StopDirection.UP);
         }

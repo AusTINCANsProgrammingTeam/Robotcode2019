@@ -14,17 +14,19 @@ public class RobotMap {
 
     public static final int RIGHT_MOTOR_1 = 4;
     public static final int RIGHT_MOTOR_2 = 2;
-    public static final int RIGHT_MOTOR_3 = 1;
+    public static final int RIGHT_MOTOR_3 = 1; // right motor is colliding the pcm address? nope jk
 
     public static final int ARM_MOTOR = 7;
     
-    public static final int SELF_LIFT_MOTOR = 12;
+    public static final int SELF_LIFT_MOTOR_1 = 12;
+    public static final int SELF_LIFT_MOTOR_2 = 4;
+
 
     public static final int HARD_STOP_FOWARD = 2;
     public static final int HARD_STOP_BACK = 5;
 
     // Pneumatic system.
-    public static final int PCM_ADDRESS = 01;
+    public static final int PCM_ADDRESS = 1;
     public static final int GEARBOX_FORWARD_CHANNEL = 0;
     public static final int GEARBOX_REVERSE_CHANNEL = 7;
 
@@ -35,6 +37,7 @@ public class RobotMap {
 
     // Intake motors and pneumatics.
     public static final int LEFT_INTAKE_MOTOR = 0;
+    
     public static final int INTAKE_SOLENOID_FOWARD = 1;
     public static final int INTAKE_SOLENOID_REVERSE = 6;
 
