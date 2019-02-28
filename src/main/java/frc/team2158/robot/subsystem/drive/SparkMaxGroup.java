@@ -1,27 +1,8 @@
 package frc.team2158.robot.subsystem.drive;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
 
-import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.team2158.robot.command.drive.DriveMode;
-import frc.team2158.robot.command.drive.OperatorControl;
-import frc.team2158.robot.command.drive.ToggleGearMode;
-import frc.team2158.robot.command.intake.*;
-import frc.team2158.robot.command.lift.MoveLiftDown;
-import frc.team2158.robot.command.lift.MoveLiftUp;
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2158.robot.subsystem.drive.DriveSubsystem;
-import frc.team2158.robot.subsystem.drive.StopSubsystem;
-import frc.team2158.robot.subsystem.drive.StopSubsystem.StopDirection;
-import frc.team2158.robot.subsystem.intake.IntakeSubsystem;
-import frc.team2158.robot.subsystem.lift.Arm;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.cscore.UsbCamera;
 
 import java.util.logging.Logger;
 
@@ -48,9 +29,10 @@ public class SparkMaxGroup implements SpeedController {
         //master.config_kP(0, 0.4, 0);
         //master.config_kI(0, 0.0, 0);
         //master.config_kD(0, 0.0, 0);
-
+        master.restoreFactoryDefaults();
         for(CANSparkMax slave : slaves) {
             slave.follow(master);
+            slave.restoreFactoryDefaults();
         }
     }
 

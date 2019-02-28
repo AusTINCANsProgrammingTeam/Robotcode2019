@@ -63,8 +63,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(640, 480);
+        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        //camera.setResolution(640, 480);
         // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
             new SparkMaxGroup(
@@ -83,8 +83,8 @@ public class Robot extends TimedRobot {
         
         LOGGER.info("Drive Subsystem Initialized properly!");
         // Initialize the arm subsystem.
-        armSubsystem = new Arm(
-            new CANSparkMax(RobotMap.ARM_MOTOR, MotorType.kBrushless)
+        armSubsystem = new Arm(RobotMap.ARM_MOTOR
+            //new CANSparkMax(RobotMap.ARM_MOTOR, MotorType.kBrushless)
         );
         LOGGER.info("Arm Subsystem Initialized properly!");
         stopSubsystem = new StopSubsystem(
@@ -200,7 +200,7 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonA", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
         
-        //Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
+        Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
         
         getStopSubsystem().raiseStop(StopDirection.UP);
         }

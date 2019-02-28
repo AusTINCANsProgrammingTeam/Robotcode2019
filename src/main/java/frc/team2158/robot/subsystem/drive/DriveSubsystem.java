@@ -27,7 +27,7 @@ public class DriveSubsystem extends Subsystem {
     public DriveSubsystem(SpeedController leftSpeedController, SpeedController rightSpeedController,
                           DoubleSolenoid gearboxSolenoid) {
         this.differentialDrive = new DifferentialDrive(leftSpeedController, rightSpeedController);
-        differentialDrive.setSafetyEnabled(false);
+        //differentialDrive.setSafetyEnabled(false);
         this.gearboxSolenoid = gearboxSolenoid;
         setGearMode(GearMode.LOW); //todo maybe this is part of the "every/other" bug?
         LOGGER.info("Drive subsystem initialization complete!");

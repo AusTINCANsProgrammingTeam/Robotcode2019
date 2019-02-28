@@ -41,8 +41,9 @@ public class Arm extends Subsystem {
      * @param controller controller to be initialized.
      * @param inverted If the lift is inverted or not
      */
-    public Arm(CANSparkMax liftSpeedController) {
-        this.liftSpeedController = liftSpeedController;
+    public Arm(int deviceId) {
+        this.liftSpeedController = new CANSparkMax(deviceId, MotorType.kBrushless);
+        liftSpeedController.restoreFactoryDefaults();
         m_pidController = liftSpeedController.getPIDController();
         upLimit = liftSpeedController.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         downLimit = liftSpeedController.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
