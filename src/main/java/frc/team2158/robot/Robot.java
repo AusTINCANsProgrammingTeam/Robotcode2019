@@ -19,6 +19,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.cscore.UsbCamera;
 import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
+import frc.team2158.robot.subsystem.lift.SelfLift;
+import frc.team2158.robot.command.lift.RunSelfLift;
 
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
@@ -39,6 +41,7 @@ public class Robot extends TimedRobot {
     private static Arm armSubsystem;
     private static IntakeSubsystem intakeSubsystem;
     private static StopSubsystem stopSubsystem;
+    private static SelfLift selfLiftSubsystem;
 
     private static OperatorInterface operatorInterface;
     
@@ -86,6 +89,7 @@ public class Robot extends TimedRobot {
         armSubsystem = new Arm(RobotMap.ARM_MOTOR
             //new CANSparkMax(RobotMap.ARM_MOTOR, MotorType.kBrushless)
         );
+        selfLiftSubsystem = new SelfLift(RobotMap.SELF_LIFT_MOTOR_1, RobotMap.SELF_LIFT_MOTOR_2);
         LOGGER.info("Arm Subsystem Initialized properly!");
         stopSubsystem = new StopSubsystem(
             new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.HARD_STOP_FOWARD, RobotMap.HARD_STOP_BACK)
@@ -137,6 +141,13 @@ public class Robot extends TimedRobot {
             return armSubsystem;
         }
         throw new RuntimeException("Lift subsystem has not yet been initialized!");
+    }
+
+    public static SelfLift getSelfLiftSubsystem() {
+        if(selfLiftSubsystem != null){
+            return selfLiftSubsystem;
+        }
+        throw new RuntimeException("Self Lift subsystem has not yet been initialized!");
     }
 
     /**
@@ -199,6 +210,8 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonA", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
+        operatorInterface.bindButton("button10", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
+
         
         Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
         
