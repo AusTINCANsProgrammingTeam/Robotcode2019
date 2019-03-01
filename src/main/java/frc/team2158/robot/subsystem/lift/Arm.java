@@ -62,8 +62,8 @@ public class Arm extends Subsystem {
         kD = 0; 
         kIz = 0; 
         kFF = 0; 
-        kMaxOutput = 1; 
-        kMinOutput = -1;
+        kMaxOutput = 5; 
+        kMinOutput = -.5;
     
         // set PID coefficients
         m_pidController.setP(kP);
@@ -102,16 +102,16 @@ public class Arm extends Subsystem {
      */
     public void moveLift() {
                 if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
-                    if(rotations < 120){
-                         rotations = rotations + 1.05;
+                    if(rotations < 5 ){
+                         rotations = rotations + .5;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     //LOGGER.warning(rotations + "");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
                 else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
-                    if(rotations > 0){
-                        rotations = rotations - 1.05;
+                    if(rotations > -5){
+                        rotations = rotations - .5;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
@@ -165,13 +165,11 @@ public class Arm extends Subsystem {
 
     public boolean getUpLimit()
     {
-        return false;
-        //return upLimit.get();
+        return upLimit.get();
     }
 
     public boolean getDownLimit()
     {
-        return false;
-        //return downLimit.get();
+        return downLimit.get();
     }
 }
