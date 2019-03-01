@@ -12,7 +12,7 @@ public class RobotMap {
     public static final int LEFT_MOTOR_2 = 8;
     public static final int LEFT_MOTOR_3 = 5;
 
-    public static final int RIGHT_MOTOR_1 = 4;
+    public static final int RIGHT_MOTOR_1 = 3;
     public static final int RIGHT_MOTOR_2 = 2;
     public static final int RIGHT_MOTOR_3 = 1; // right motor is colliding the pcm address? nope jk
 

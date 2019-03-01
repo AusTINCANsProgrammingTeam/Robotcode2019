@@ -57,7 +57,7 @@ public class Arm extends Subsystem {
         m_pidController.setReference(rotations, ControlType.kPosition);*/
     
         // PID coefficients
-        kP = 5e-5;
+        kP = 1;
         kI = 1e-6;
         kD = 0; 
         kIz = 0; 
