@@ -41,10 +41,10 @@ public class Arm extends Subsystem {
      * @param controller controller to be initialized.
      * @param inverted If the lift is inverted or not
      */
-    public Arm(int deviceId) {
-        this.liftSpeedController = new CANSparkMax(deviceId, MotorType.kBrushless);
-        liftSpeedController.restoreFactoryDefaults();
+    public Arm(int deviceID) {
+        liftSpeedController = new CANSparkMax(deviceID, MotorType.kBrushless);
         m_pidController = liftSpeedController.getPIDController();
+        liftSpeedController.restoreFactoryDefaults();
         upLimit = liftSpeedController.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         downLimit = liftSpeedController.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         // Encoder object created to display position values
@@ -62,7 +62,7 @@ public class Arm extends Subsystem {
         kD = 0; 
         kIz = 0; 
         kFF = 0; 
-        kMaxOutput = 5;
+        kMaxOutput = .5; 
         kMinOutput = -.5;
     
         // set PID coefficients
@@ -102,7 +102,7 @@ public class Arm extends Subsystem {
      */
     public void moveLift() {
                 if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
-                    if(rotations < 5 ){
+                    if(rotations < 5 && upLimit.equals(false)){
                          rotations = rotations + .5;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
@@ -110,7 +110,7 @@ public class Arm extends Subsystem {
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
                 else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
-                    if(rotations > -5){
+                    if(rotations > -5 && downLimit.equals(false)){
                         rotations = rotations - .5;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));

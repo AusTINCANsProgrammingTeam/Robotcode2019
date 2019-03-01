@@ -9,21 +9,21 @@ import java.util.logging.Logger;
  * @version 0.0.1
  * Runs the command in order to stop the lift
  */
-public class StopLift extends Command {
+public class StopSelfLift extends Command {
     private static final Logger LOGGER = Logger.getLogger(StopLift.class.getName());
 
     /**
      * Instantiates the command.
      */
-    public StopLift() {
-        requires(Robot.getLiftSubsystem());
+    public StopSelfLift() {
+        requires(Robot.getSelfLiftSubsystem());
     }
     /**
      * Runs the command.
      */
     @Override
     protected void initialize() {
-        Robot.getLiftSubsystem().stopLift();
+        Robot.getSelfLiftSubsystem().stopLift();
     }
 
     @Override

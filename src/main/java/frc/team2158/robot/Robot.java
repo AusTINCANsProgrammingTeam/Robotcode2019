@@ -21,7 +21,6 @@ import edu.wpi.cscore.UsbCamera;
 import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
 import frc.team2158.robot.subsystem.lift.SelfLift;
 import frc.team2158.robot.command.lift.RunSelfLift;
-
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
 //TODO Lua macros

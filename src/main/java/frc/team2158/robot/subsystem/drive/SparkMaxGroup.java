@@ -1,6 +1,8 @@
 package frc.team2158.robot.subsystem.drive;
 
 import edu.wpi.first.wpilibj.SpeedController;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 
 import com.revrobotics.CANSparkMax;
 
@@ -9,6 +11,8 @@ import java.util.logging.Logger;
 public class SparkMaxGroup implements SpeedController {
     private static final Logger LOGGER = Logger.getLogger(SparkMaxGroup.class.getName());
     private CANSparkMax master;
+    private CANPIDController m_pidController;
+    private CANEncoder m_encoder;
 
 
     /**
@@ -19,6 +23,8 @@ public class SparkMaxGroup implements SpeedController {
      */
     public SparkMaxGroup(CANSparkMax master, CANSparkMax... slaves) {
         this.master = master;
+        m_encoder = master.getEncoder();
+        m_pidController = master.getPIDController();
         master.restoreFactoryDefaults();
         for(CANSparkMax slave : slaves) {
             slave.follow(master);
@@ -42,6 +48,15 @@ public class SparkMaxGroup implements SpeedController {
     @Override
     public void set(double speed) {
         master.set(speed);
+    }
+
+    public void setPID(double kP, double kI, double kD, double kIz, double kFF, double kMaxOutput, double kMinOutput){
+        m_pidController.setP(kP);
+        m_pidController.setI(kI);
+        m_pidController.setD(kD);
+        m_pidController.setIZone(kIz);
+        m_pidController.setFF(kFF);
+        m_pidController.setOutputRange(kMinOutput, kMaxOutput);
     }
 
     /**
