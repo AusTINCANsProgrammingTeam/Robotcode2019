@@ -41,12 +41,12 @@ public class Arm extends Subsystem {
      * @param controller controller to be initialized.
      * @param inverted If the lift is inverted or not
      */
-    public Arm(int deviceId) {
-        this.liftSpeedController = new CANSparkMax(deviceId, MotorType.kBrushless);
-        liftSpeedController.restoreFactoryDefaults();
+    public Arm(int deviceID) {
+        liftSpeedController = new CANSparkMax(deviceID, MotorType.kBrushless);
         m_pidController = liftSpeedController.getPIDController();
-        upLimit = liftSpeedController.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-        downLimit = liftSpeedController.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+        liftSpeedController.restoreFactoryDefaults();
+        //upLimit = liftSpeedController.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+        //downLimit = liftSpeedController.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         // Encoder object created to display position values
         m_encoder = liftSpeedController.getEncoder();
         rotations = m_encoder.getPosition();
@@ -57,8 +57,8 @@ public class Arm extends Subsystem {
         m_pidController.setReference(rotations, ControlType.kPosition);*/
     
         // PID coefficients
-        kP = 5e-5;
-        kI = 1e-6;
+        kP = 1;
+        kI = 1e-4;
         kD = 0; 
         kIz = 0; 
         kFF = 0; 

@@ -19,16 +19,6 @@ public class SparkMaxGroup implements SpeedController {
      */
     public SparkMaxGroup(CANSparkMax master, CANSparkMax... slaves) {
         this.master = master;
-
-        //master.configContinuousCurrentLimit(20, 0);
-        //master.configPeakCurrentLimit(30, 0);
-        //master.configPeakCurrentDuration(250, 0);
-        //master.enableCurrentLimit(true);
-        //master.configOpenloopRamp(0.250, 0);
-        //master.configClosedloopRamp(0.250, 0);
-        //master.config_kP(0, 0.4, 0);
-        //master.config_kI(0, 0.0, 0);
-        //master.config_kD(0, 0.0, 0);
         master.restoreFactoryDefaults();
         for(CANSparkMax slave : slaves) {
             slave.follow(master);
