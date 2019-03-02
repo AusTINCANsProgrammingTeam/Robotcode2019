@@ -32,7 +32,7 @@ public class SelfLift extends Subsystem {
     public static double DEFAULT_LIFT_UP_SPEED = 1.0;
     public static double DEFAULT_LIFT_DOWN_SPEED = 0.75;
     private CANPIDController m_pidController;
-    private CANEncoder m_encoder;
+    private CANEncoder m_encoderLift;
     private CANSparkMax motor1;
     private CANSparkMax motor2;
     private CANDigitalInput upLimit;
@@ -47,7 +47,7 @@ public class SelfLift extends Subsystem {
     public SelfLift(int deviceID_1, int deviceID_2) {
         motor1 = new CANSparkMax(deviceID_1, MotorType.kBrushless);
         m_pidController = motor1.getPIDController();
-        m_encoder = motor1.getEncoder();
+        m_encoderLift = motor1.getEncoder();
         kP = 1;
         kI = 1e-4;
         kD = 0; 
@@ -61,7 +61,7 @@ public class SelfLift extends Subsystem {
         m_pidController.setIZone(kIz);
         m_pidController.setFF(kFF);
         m_pidController.setOutputRange(kMinOutput, kMaxOutput);
-        rotations = m_encoder.getPosition();
+        rotations = m_encoderLift.getPosition();
         motor2 = new CANSparkMax(deviceID_2, MotorType.kBrushless);
         motor2.follow(motor1);
         //m_pidController = liftSpeedController.getPIDController();
@@ -85,10 +85,24 @@ public class SelfLift extends Subsystem {
      * @param direction Direction specified.
      * @param speed Speed specified.
      */
-    public void selfLift(){  
+    public void selfLift3rd(){  
             rotations = 20;
             m_pidController.setReference(rotations, ControlType.kPosition);
-            LOGGER.warning("Encoder: "+m_encoder.getPosition());
+            LOGGER.warning("Encoder: "+m_encoderLift.getPosition());
+    }
+
+    public void selfLift2nd(){  
+        rotations = 20;
+        m_pidController.setReference(rotations, ControlType.kPosition);
+        LOGGER.warning("Encoder: "+m_encoderLift.getPosition());
+}
+
+    public void reverseLift(){  
+        if(rotations <= 0){
+            rotations = rotations -.5;
+            m_pidController.setReference(rotations, ControlType.kPosition);
+            LOGGER.warning("Encoder: "+m_encoderLift.getPosition());
+        }
     }
     
 
@@ -102,12 +116,12 @@ public class SelfLift extends Subsystem {
     public void resetPos(){
        m_pidController.setReference(0, ControlType.kPosition);
        rotations = 0;
-       m_encoder.setPosition(0);
-       LOGGER.warning("encoderPos: "+ Double.toString(m_encoder.getPosition()));
+       m_encoderLift.setPosition(0);
+       LOGGER.warning("encoderPos: "+ Double.toString(m_encoderLift.getPosition()));
     }
 
     public double getPos(){
-       return  m_encoder.getPosition();
+       return  m_encoderLift.getPosition();
     }
 
     public double getRotations(){

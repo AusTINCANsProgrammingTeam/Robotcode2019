@@ -41,10 +41,10 @@ public class Arm extends Subsystem {
      * @param controller controller to be initialized.
      * @param inverted If the lift is inverted or not
      */
-    public Arm(int deviceID) {
-        liftSpeedController = new CANSparkMax(deviceID, MotorType.kBrushless);
-        m_pidController = liftSpeedController.getPIDController();
+    public Arm(int deviceId) {
+        this.liftSpeedController = new CANSparkMax(deviceId, MotorType.kBrushless);
         liftSpeedController.restoreFactoryDefaults();
+        m_pidController = liftSpeedController.getPIDController();
         upLimit = liftSpeedController.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         downLimit = liftSpeedController.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         // Encoder object created to display position values
@@ -62,7 +62,7 @@ public class Arm extends Subsystem {
         kD = 0; 
         kIz = 0; 
         kFF = 0; 
-        kMaxOutput = .5; 
+        kMaxOutput = 5; 
         kMinOutput = -.5;
     
         // set PID coefficients
@@ -101,40 +101,21 @@ public class Arm extends Subsystem {
      * @param speed Speed specified.
      */
     public void moveLift() {
-                if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15 && upLimit.get() == false){
-                    if(rotations < 20 && upLimit.equals(false)){
-                         rotations = rotations + .5;
+                if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) < -.15 && upLimit.get() == false){
+                    if(rotations < 20 ){
+                         rotations = rotations + .3;
                     }
-                    //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     //LOGGER.warning(rotations + "");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
-                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15 && downLimit.get() == false){
-                    if(rotations > -27 && downLimit.equals(false)){
-                        rotations = rotations - .5;
+                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) > .15 && downLimit.get() == false){
+                    if(rotations > -27){
+                        rotations = rotations - .3;
                     }
-                    //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
-    }
-    public void moveLiftPos(Direction direction){
-        switch(direction){
-            case UP:
-                if(false == false){
-                rotations = 120;
-                m_pidController.setReference(rotations, ControlType.kPosition);
-                LOGGER.warning("moveLiftPos Up");
-            }
-                break;
-            case DOWN:
-                if(false == false){
-                rotations = 0;
-                m_pidController.setReference(rotations, ControlType.kPosition);
-                LOGGER.warning("moveLiftPos Down");
-            }
-                break;
-
-        }
     }
     /**
      * Stops the lift by setting the speed to zero.

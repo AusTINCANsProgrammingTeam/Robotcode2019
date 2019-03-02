@@ -5,8 +5,6 @@ import frc.team2158.robot.command.drive.DriveMode;
 import frc.team2158.robot.command.drive.OperatorControl;
 import frc.team2158.robot.command.drive.ToggleGearMode;
 import frc.team2158.robot.command.intake.*;
-import frc.team2158.robot.command.lift.MoveLiftDown;
-import frc.team2158.robot.command.lift.MoveLiftUp;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,7 +18,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.cscore.UsbCamera;
 import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
 import frc.team2158.robot.subsystem.lift.SelfLift;
+import frc.team2158.robot.command.lift.ResetLift;
 import frc.team2158.robot.command.lift.RunSelfLift;
+import frc.team2158.robot.command.lift.RunSelfLift2nd;
+
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
 //TODO Lua macros
@@ -66,8 +67,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        //camera.setResolution(640, 480);
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+        camera1.setResolution(640, 480);
+        UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+        camera2.setResolution(640, 480);
         // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
             new SparkMaxGroup(
@@ -210,7 +213,10 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonA", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
-        operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
+        //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
+        //operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ResetLift(), 1);
+        //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
+
 
         
         Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));

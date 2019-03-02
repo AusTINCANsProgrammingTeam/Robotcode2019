@@ -36,7 +36,7 @@ public class RunSelfLift extends Command {
      */
     @Override
     protected void execute() {
-        Robot.getSelfLiftSubsystem().selfLift();
+        Robot.getSelfLiftSubsystem().selfLift3rd();
     }
 
     @Override
