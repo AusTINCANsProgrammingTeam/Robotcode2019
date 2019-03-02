@@ -32,7 +32,7 @@ public class OperatorControl extends Command {
 
     @Override
     public void execute() {
-        LOGGER.warning(Double.toString(joystick.getRawAxis(1))+ ", " + Double.toString(joystick.getRawAxis(4)));
+        //LOGGER.warning(Double.toString(joystick.getRawAxis(1))+ ", " + Double.toString(joystick.getRawAxis(4)));
         switch(driveMode) {
             case TANK:
                 driveSubsystem.tankDrive(joystick.getRawAxis(0), joystick.getRawAxis(1));

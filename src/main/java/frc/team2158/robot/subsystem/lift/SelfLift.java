@@ -33,6 +33,8 @@ public class SelfLift extends Subsystem {
     public static double DEFAULT_LIFT_DOWN_SPEED = 0.75;
     private CANPIDController m_pidController;
     private CANEncoder m_encoder;
+    private CANSparkMax motor1;
+    private CANSparkMax motor2;
     private CANDigitalInput upLimit;
     private CANDigitalInput downLimit;
     private static double rotations;
@@ -43,22 +45,9 @@ public class SelfLift extends Subsystem {
      * @param inverted If the lift is inverted or not
      */
     public SelfLift(int deviceID_1, int deviceID_2) {
-        CANSparkMax master = new CANSparkMax(deviceID_1, MotorType.kBrushless);
-        liftSpeedController = new SparkMaxGroup(
-            master,
-            new CANSparkMax(deviceID_2, MotorType.kBrushless)
-            );
-        //m_pidController = liftSpeedController.getPIDController();
-        // Encoder object created to display position values
-        //m_encoder = liftSpeedController.getEncoder();
-        rotations = m_encoder.getPosition();
-        /*if (rotations < -0.45)
-        {
-            rotations = -.45;
-        }
-        m_pidController.setReference(rotations, ControlType.kPosition);*/
-    
-        // PID coefficients
+        motor1 = new CANSparkMax(deviceID_1, MotorType.kBrushless);
+        m_pidController = motor1.getPIDController();
+        m_encoder = motor1.getEncoder();
         kP = 1;
         kI = 1e-4;
         kD = 0; 
@@ -66,6 +55,25 @@ public class SelfLift extends Subsystem {
         kFF = 0; 
         kMaxOutput = 1; 
         kMinOutput = -1;
+        m_pidController.setP(kP);
+        m_pidController.setI(kI);
+        m_pidController.setD(kD);
+        m_pidController.setIZone(kIz);
+        m_pidController.setFF(kFF);
+        m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+        rotations = m_encoder.getPosition();
+        motor2 = new CANSparkMax(deviceID_2, MotorType.kBrushless);
+        motor2.follow(motor1);
+        //m_pidController = liftSpeedController.getPIDController();
+        // Encoder object created to display position values
+        //m_encoder = liftSpeedController.getEncoder();
+        /*if (rotations < -0.45)
+        {
+            rotations = -.45;
+        }
+        m_pidController.setReference(rotations, ControlType.kPosition);*/
+    
+        // PID coefficient
         
        
     
@@ -78,9 +86,9 @@ public class SelfLift extends Subsystem {
      * @param speed Speed specified.
      */
     public void selfLift(){  
-            rotations = 5;
+            rotations = 20;
             m_pidController.setReference(rotations, ControlType.kPosition);
-            LOGGER.warning("moveLiftPos Up");
+            LOGGER.warning("Encoder: "+m_encoder.getPosition());
     }
     
 

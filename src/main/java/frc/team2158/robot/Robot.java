@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
     public void disabledPeriodic(){
         SmartDashboard.putBoolean("UpLimit", armSubsystem.getUpLimit());
         SmartDashboard.putBoolean("DownLimit", armSubsystem.getDownLimit());
+        SmartDashboard.putNumber("SelfClimbEnc", selfLiftSubsystem.getPos());
     }
 
     /**
@@ -204,12 +205,12 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonRB", OperatorInterface.ButtonMode.WHILE_HELD, new Intake(),1);
         operatorInterface.bindButton("buttonRT", OperatorInterface.ButtonMode.WHILE_HELD, new Outtake(), 1);
         operatorInterface.bindButton("button2", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 1);
-        operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftUp(), 1);
-        operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
+        //operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftUp(), 1);
+        //operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
         operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonA", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
-        operatorInterface.bindButton("button10", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
+        operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
 
         
         Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));

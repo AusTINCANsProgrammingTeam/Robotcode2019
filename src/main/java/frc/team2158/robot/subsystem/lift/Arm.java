@@ -101,19 +101,19 @@ public class Arm extends Subsystem {
      * @param speed Speed specified.
      */
     public void moveLift() {
-                if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
-                    if(rotations < 5 && upLimit.equals(false)){
+                if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15 && upLimit.get() == false){
+                    if(rotations < 20 && upLimit.equals(false)){
                          rotations = rotations + .5;
                     }
-                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     //LOGGER.warning(rotations + "");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
-                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
-                    if(rotations > -5 && downLimit.equals(false)){
+                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15 && downLimit.get() == false){
+                    if(rotations > -27 && downLimit.equals(false)){
                         rotations = rotations - .5;
                     }
-                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
     }
