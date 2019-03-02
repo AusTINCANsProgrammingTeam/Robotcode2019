@@ -63,8 +63,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        //camera.setResolution(640, 480);
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+        camera1.setResolution(640, 480);
+        UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+        camera2.setResolution(640, 480);
         // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
             new SparkMaxGroup(
@@ -193,7 +195,7 @@ public class Robot extends TimedRobot {
     public void setup(){
         operatorInterface.bindButton("buttonRB", OperatorInterface.ButtonMode.WHILE_HELD, new Intake(),1);
         operatorInterface.bindButton("buttonRT", OperatorInterface.ButtonMode.WHILE_HELD, new Outtake(), 1);
-        operatorInterface.bindButton("button2", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 1);
+        operatorInterface.bindButton("button2", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleHatchSolenoid(), 1);
         operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftUp(), 1);
         operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
         operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);

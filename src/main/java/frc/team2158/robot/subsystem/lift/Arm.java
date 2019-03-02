@@ -101,17 +101,17 @@ public class Arm extends Subsystem {
      * @param speed Speed specified.
      */
     public void moveLift() {
-                if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
-                    if(rotations < 5 ){
-                         rotations = rotations + .5;
+                if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) < -.15 && upLimit.get() == false){
+                    if(rotations < 20 ){
+                         rotations = rotations + .3;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     //LOGGER.warning(rotations + "");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
-                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
-                    if(rotations > -5){
-                        rotations = rotations - .5;
+                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) > .15 && downLimit.get() == false){
+                    if(rotations > -27){
+                        rotations = rotations - .3;
                     }
                     LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);

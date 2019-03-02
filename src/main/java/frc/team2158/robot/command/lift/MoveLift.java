@@ -20,6 +20,7 @@ public class MoveLift extends Command {
      * @param direction Either UP or DOWN
      * @param speed Speed of lift
      */
+
     public MoveLift() {
         requires(Robot.getLiftSubsystem());
     }
