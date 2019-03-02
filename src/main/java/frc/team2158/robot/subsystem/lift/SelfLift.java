@@ -43,8 +43,9 @@ public class SelfLift extends Subsystem {
      * @param inverted If the lift is inverted or not
      */
     public SelfLift(int deviceID_1, int deviceID_2) {
+        CANSparkMax master = new CANSparkMax(deviceID_1, MotorType.kBrushless);
         liftSpeedController = new SparkMaxGroup(
-            new CANSparkMax(deviceID_1, MotorType.kBrushless),
+            master,
             new CANSparkMax(deviceID_2, MotorType.kBrushless)
             );
         //m_pidController = liftSpeedController.getPIDController();
@@ -65,7 +66,6 @@ public class SelfLift extends Subsystem {
         kFF = 0; 
         kMaxOutput = 1; 
         kMinOutput = -1;
-        liftSpeedController.setPID(kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput);
         
        
     

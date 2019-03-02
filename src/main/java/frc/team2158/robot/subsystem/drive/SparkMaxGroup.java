@@ -50,14 +50,6 @@ public class SparkMaxGroup implements SpeedController {
         master.set(speed);
     }
 
-    public void setPID(double kP, double kI, double kD, double kIz, double kFF, double kMaxOutput, double kMinOutput){
-        m_pidController.setP(kP);
-        m_pidController.setI(kI);
-        m_pidController.setD(kD);
-        m_pidController.setIZone(kIz);
-        m_pidController.setFF(kFF);
-        m_pidController.setOutputRange(kMinOutput, kMaxOutput);
-    }
 
     /**
      * Common interface for getting the current set speed of the speed controller.
