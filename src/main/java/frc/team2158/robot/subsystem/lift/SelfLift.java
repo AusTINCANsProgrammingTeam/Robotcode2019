@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2158.robot.Robot;
 import frc.team2158.robot.command.lift.StopSelfLift;
+import frc.team2158.robot.command.lift.RunSelfLift;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
@@ -37,6 +38,7 @@ public class SelfLift extends Subsystem {
     private CANSparkMax motor2;
     private CANDigitalInput upLimit;
     private CANDigitalInput downLimit;
+    private Joystick joystick;
     private static double rotations;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
     /**
@@ -45,8 +47,9 @@ public class SelfLift extends Subsystem {
      * @param inverted If the lift is inverted or not
      */
     public SelfLift(int deviceID_1, int deviceID_2) {
+        joystick = new Joystick(0);
         motor1 = new CANSparkMax(deviceID_1, MotorType.kBrushless);
-        m_pidController = motor1.getPIDController();
+       /* m_pidController = motor1.getPIDController();
         m_encoderLift = motor1.getEncoder();
         kP = 1;
         kI = 1e-4;
@@ -61,7 +64,7 @@ public class SelfLift extends Subsystem {
         m_pidController.setIZone(kIz);
         m_pidController.setFF(kFF);
         m_pidController.setOutputRange(kMinOutput, kMaxOutput);
-        rotations = m_encoderLift.getPosition();
+        rotations = m_encoderLift.getPosition();*/
         motor2 = new CANSparkMax(deviceID_2, MotorType.kBrushless);
         motor2.follow(motor1);
         //m_pidController = liftSpeedController.getPIDController();
@@ -85,63 +88,21 @@ public class SelfLift extends Subsystem {
      * @param direction Direction specified.
      * @param speed Speed specified.
      */
-    public void selfLift3rd(){  
-            rotations = 20;
-            m_pidController.setReference(rotations, ControlType.kPosition);
-            LOGGER.warning("Encoder: "+m_encoderLift.getPosition());
+    public void selfLift(){  
+        joystick = Robot.getOperatorInterface().getOperatorController();
+        motor1.set(Math.pow(-joystick.getRawAxis(3),3));
     }
 
-    public void selfLift2nd(){  
-        rotations = 20;
-        m_pidController.setReference(rotations, ControlType.kPosition);
-        LOGGER.warning("Encoder: "+m_encoderLift.getPosition());
-}
-
-    public void reverseLift(){  
-        if(rotations <= 0){
-            rotations = rotations -.5;
-            m_pidController.setReference(rotations, ControlType.kPosition);
-            LOGGER.warning("Encoder: "+m_encoderLift.getPosition());
-        }
-    }
-    
 
     /**
      * Stops the lift by setting the speed to zero.
      */
     public void stopLift() {
-       
-    }
-
-    public void resetPos(){
-       m_pidController.setReference(0, ControlType.kPosition);
-       rotations = 0;
-       m_encoderLift.setPosition(0);
-       LOGGER.warning("encoderPos: "+ Double.toString(m_encoderLift.getPosition()));
-    }
-
-    public double getPos(){
-       return  m_encoderLift.getPosition();
-    }
-
-    public double getRotations(){
-        return rotations;
     }
     
     @Override
     protected void initDefaultCommand() {
-       setDefaultCommand(new StopSelfLift());
+       setDefaultCommand(new RunSelfLift());
     }
 
-    public boolean getUpLimit()
-    {
-        return false;
-        //return upLimit.get();
-    }
-
-    public boolean getDownLimit()
-    {
-        return false;
-        //return downLimit.get();
-    }
 }

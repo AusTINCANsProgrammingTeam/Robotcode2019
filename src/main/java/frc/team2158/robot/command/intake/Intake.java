@@ -19,7 +19,7 @@ public class Intake extends Command {
      */
     public Intake() {
         requires(Robot.getIntakeSubsystem());
-        LOGGER.info("Intake Command Initialized.");
+        //LOGGER.info("Intake Command Initialized.");
     }
 
     /**

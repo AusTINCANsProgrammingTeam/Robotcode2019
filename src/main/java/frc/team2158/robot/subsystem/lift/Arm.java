@@ -57,7 +57,7 @@ public class Arm extends Subsystem {
         m_pidController.setReference(rotations, ControlType.kPosition);*/
     
         // PID coefficients
-        kP = 1;
+        kP = .8;
         kI = 1e-6;
         kD = 0; 
         kIz = 0; 
@@ -105,7 +105,7 @@ public class Arm extends Subsystem {
                     if(rotations < 20 ){
                          rotations = rotations + .3;
                     }
-                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     //LOGGER.warning(rotations + "");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
@@ -113,7 +113,7 @@ public class Arm extends Subsystem {
                     if(rotations > -27){
                         rotations = rotations - .3;
                     }
-                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
     }
@@ -125,10 +125,10 @@ public class Arm extends Subsystem {
     }
 
     public void resetPos(){
+       m_encoder.setPosition(0);
        m_pidController.setReference(0, ControlType.kPosition);
        rotations = 0;
-       m_encoder.setPosition(0);
-       LOGGER.warning("encoderPos: "+ Double.toString(m_encoder.getPosition()));
+       //LOGGER.warning("encoderPos: "+ Double.toString(m_encoder.getPosition()));
     }
 
     public double getPos(){

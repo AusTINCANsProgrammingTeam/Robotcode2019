@@ -27,7 +27,7 @@ public class Outtake extends Command {
     @Override
     protected void initialize() {
         Robot.getIntakeSubsystem().runIntake(IntakeSubsystem.IntakeDirection.OUT);
-        LOGGER.info("Outtake is initializing!");
+        //LOGGER.info("Outtake is initializing!");
 
     }
 

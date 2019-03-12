@@ -27,7 +27,7 @@ public class OuttakeHalfSpeed extends Command {
     @Override
     protected void initialize() {
         Robot.getIntakeSubsystem().runIntakeHalfSpeed(IntakeSubsystem.IntakeDirection.OUT);
-        LOGGER.info("Outtake is initializing!");
+        //LOGGER.info("Outtake is initializing!");
 
     }
 

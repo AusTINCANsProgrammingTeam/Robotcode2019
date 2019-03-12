@@ -61,10 +61,10 @@ public class IntakeSubsystem extends Subsystem {
     public void runIntakeHalfSpeed(IntakeDirection direction){
         switch(direction){
             case IN:
-                leftSpeedController.set(-DEFAULT_INTAKE_SPEED/2);
+                leftSpeedController.set(-DEFAULT_INTAKE_SPEED*.75);
                 break;
             case OUT:
-                leftSpeedController.set(DEFAULT_INTAKE_SPEED/2);
+                leftSpeedController.set(DEFAULT_INTAKE_SPEED*.625);
                 break;
         }
     }
