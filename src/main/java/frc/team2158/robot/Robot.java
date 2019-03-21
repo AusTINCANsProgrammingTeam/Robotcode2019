@@ -19,6 +19,7 @@ import edu.wpi.cscore.UsbCamera;
 import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
 import frc.team2158.robot.subsystem.lift.SelfLift;
 import frc.team2158.robot.command.lift.RunSelfLift;
+import frc.team2158.robot.command.lift.ChangeLimit;
 
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
@@ -49,13 +50,11 @@ public class Robot extends TimedRobot {
         //will this ^^^ be run before the match starts? 
         //because there may be issues if it tries to reset itself while being locked by a solenoid
         SmartDashboard.putBoolean("UpLimit", armSubsystem.getUpLimit());
-        SmartDashboard.putBoolean("DownLimit", armSubsystem.getDownLimit());
     }
 
     @Override
     public void disabledPeriodic(){
         SmartDashboard.putBoolean("UpLimit", armSubsystem.getUpLimit());
-        SmartDashboard.putBoolean("DownLimit", armSubsystem.getDownLimit());
     }
 
     /**
@@ -209,9 +208,10 @@ public class Robot extends TimedRobot {
         //operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
         operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
-        operatorInterface.bindButton("buttonA", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
+        operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
         //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
         //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
+        operatorInterface.bindButton("button10", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
 
 
         

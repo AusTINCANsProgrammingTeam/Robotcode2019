@@ -37,7 +37,6 @@ public class SelfLift extends Subsystem {
     private CANSparkMax motor1;
     private CANSparkMax motor2;
     private CANDigitalInput upLimit;
-    private CANDigitalInput downLimit;
     private Joystick joystick;
     private static double rotations;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;

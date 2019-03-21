@@ -33,9 +33,10 @@ public class Arm extends Subsystem {
     private CANPIDController m_pidController;
     private CANEncoder m_encoder;
     private CANDigitalInput upLimit;
-    private CANDigitalInput downLimit;
     private static double rotations;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
+    public double topLimit = 20;
+    public double bottomLimit = -27;
     /**
      * Initializes our Lift subsystem.
      * @param controller controller to be initialized.
@@ -46,7 +47,6 @@ public class Arm extends Subsystem {
         liftSpeedController.restoreFactoryDefaults();
         m_pidController = liftSpeedController.getPIDController();
         upLimit = liftSpeedController.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-        downLimit = liftSpeedController.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         // Encoder object created to display position values
         m_encoder = liftSpeedController.getEncoder();
         rotations = m_encoder.getPosition();
@@ -102,20 +102,24 @@ public class Arm extends Subsystem {
      */
     public void moveLift() {
                 if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) < -.15 && upLimit.get() == false){
-                    if(rotations < 20 ){
+                    if(rotations < topLimit ){
                          rotations = rotations + .3;
                     }
                     //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     //LOGGER.warning(rotations + "");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
-                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) > .15 && downLimit.get() == false){
-                    if(rotations > -27){
+                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) > .15){
+                    if(rotations > bottomLimit){
                         rotations = rotations - .3;
                     }
                     //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
+    }
+
+    public void changeBottomLimit(){
+        bottomLimit = -37;
     }
     /**
      * Stops the lift by setting the speed to zero.
@@ -149,8 +153,4 @@ public class Arm extends Subsystem {
         return upLimit.get();
     }
 
-    public boolean getDownLimit()
-    {
-        return downLimit.get();
-    }
 }
