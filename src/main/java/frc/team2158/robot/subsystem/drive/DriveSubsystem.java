@@ -20,7 +20,6 @@ public class DriveSubsystem extends Subsystem {
     private static final Logger LOGGER = Logger.getLogger(DriveSubsystem.class.getName());
 
     private DifferentialDrive differentialDrive;
-    private GearMode gearMode = GearMode.LOW;
     private DoubleSolenoid gearboxSolenoid;
     private boolean held;
 
@@ -60,11 +59,7 @@ public class DriveSubsystem extends Subsystem {
     /**
      * Returns instance of gearMode
      * @return instance of gearMode
-     */
-    public GearMode getGearMode() {
-        return gearMode;
-    }
-
+    */
     public void holdVision(){
         held = true;
     }
