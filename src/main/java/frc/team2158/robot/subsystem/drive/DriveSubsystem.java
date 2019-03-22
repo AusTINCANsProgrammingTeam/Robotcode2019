@@ -62,39 +62,29 @@ public class DriveSubsystem extends Subsystem {
      * Sets the gear mode
      * @param gearMode mode to set the gear
      */
-    public void setGearMode(GearMode gearMode) {
-        this.gearMode = gearMode;
-        updateGearMode();
+    public void setGearMode(DoubleSolenoid.Value state) {
+        gearboxSolenoid.set(state);
     }
 
     /**
      * Easy way to change the gear mode after being set.
      */
     public void toggleGearMode() {
-        switch(gearMode) {
-            case HIGH:
-                gearMode = GearMode.LOW;
+        switch(gearboxSolenoid.get()) {
+            case kForward:
+                setGearMode(DoubleSolenoid.Value.kReverse);
                 break;
-            case LOW:
-                gearMode = GearMode.HIGH;
+            case kReverse:
+                setGearMode(DoubleSolenoid.Value.kForward);
+                break;
+            case kOff:
                 break;
         }
-        updateGearMode();
     }
 
     /**
      * Changes gear mode internally
      */
-    private void updateGearMode() {
-        switch(gearMode) {
-            case HIGH:
-                gearboxSolenoid.set(DoubleSolenoid.Value.kForward);
-                break;
-            case LOW:
-                gearboxSolenoid.set(DoubleSolenoid.Value.kReverse);
-                break;
-        }
-    }
 
     @Override
     protected void initDefaultCommand() {
