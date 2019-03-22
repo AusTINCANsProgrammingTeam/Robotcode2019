@@ -16,8 +16,7 @@ public class SetGearMode extends Command {
 
     private GearMode gearMode;
     
-    public SetGearMode(GearMode gearMode) {
-        this.gearMode = gearMode;
+    public SetGearMode() {
     }
 
     /**
@@ -25,8 +24,7 @@ public class SetGearMode extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.getDriveSubsystem().setGearMode(gearMode);
-        LOGGER.info(String.format("Set the gear mode to %s.", gearMode));
+        Robot.getDriveSubsystem().toggleGearMode();
     }
 
     @Override

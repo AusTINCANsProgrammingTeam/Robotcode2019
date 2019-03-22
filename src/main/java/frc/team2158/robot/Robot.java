@@ -5,6 +5,7 @@ import frc.team2158.robot.command.drive.DriveMode;
 import frc.team2158.robot.command.drive.OperatorControl;
 import frc.team2158.robot.command.drive.ToggleGearMode;
 import frc.team2158.robot.command.intake.*;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,7 +17,6 @@ import frc.team2158.robot.subsystem.intake.IntakeSubsystem;
 import frc.team2158.robot.subsystem.lift.Arm;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.cscore.UsbCamera;
 import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
 import frc.team2158.robot.subsystem.lift.SelfLift;
 import frc.team2158.robot.command.lift.RunSelfLift;
@@ -63,11 +63,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-        camera1.setResolution(320, 240);
-        //UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-        //camera2.setResolution(320, 240);
-        // Initialize the drive subsystem.
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(320, 240);
         driveSubsystem = new DriveSubsystem(
             new SparkMaxGroup(
                 new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
@@ -209,7 +206,7 @@ public class Robot extends TimedRobot {
         //operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
         operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
-        operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleGearMode(), 0);
+        operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
         //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
         //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
         operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
