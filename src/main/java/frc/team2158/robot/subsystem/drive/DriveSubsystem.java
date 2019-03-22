@@ -15,7 +15,7 @@ public class DriveSubsystem extends Subsystem {
     private static final Logger LOGGER = Logger.getLogger(DriveSubsystem.class.getName());
 
     private DifferentialDrive differentialDrive;
-    private GearMode gearMode;
+    private GearMode gearMode = GearMode.LOW;
     private DoubleSolenoid gearboxSolenoid;
 
     /**

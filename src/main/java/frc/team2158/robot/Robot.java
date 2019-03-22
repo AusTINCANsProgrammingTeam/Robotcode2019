@@ -82,7 +82,6 @@ public class Robot extends TimedRobot {
         new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
                 RobotMap.GEARBOX_REVERSE_CHANNEL)
 );
-Robot.getDriveSubsystem().setGearMode(GearMode.LOW);
         
         LOGGER.info("Drive Subsystem Initialized properly!");
         // Initialize the arm subsystem.
@@ -210,7 +209,7 @@ Robot.getDriveSubsystem().setGearMode(GearMode.LOW);
         //operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
         operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
-        operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
+        operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleGearMode(), 0);
         //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
         //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
         operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
