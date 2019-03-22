@@ -47,7 +47,7 @@ public class DriveSubsystem extends Subsystem {
      * @param heading heading
      */
     public void arcadeDrive(double velocity, double heading) {
-        differentialDrive.arcadeDrive(velocity, heading * .75, true);
+        differentialDrive.arcadeDrive(velocity, heading * .70, true);
     }
 
     /**
@@ -78,10 +78,6 @@ public class DriveSubsystem extends Subsystem {
             case LOW:
                 gearMode = GearMode.HIGH;
                 break;
-            default:
-                gearMode = GearMode.LOW;
-                break;
-                //default case? (in case of accidentally using it before setGearMode())
         }
         updateGearMode();
     }

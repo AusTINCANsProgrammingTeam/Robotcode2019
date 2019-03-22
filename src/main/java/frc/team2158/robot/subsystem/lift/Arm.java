@@ -34,6 +34,7 @@ public class Arm extends Subsystem {
     private CANEncoder m_encoder;
     private CANDigitalInput upLimit;
     private static double rotations;
+    private boolean lift = false;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
     public double topLimit = 20;
     public double bottomLimit = -27;
@@ -119,7 +120,12 @@ public class Arm extends Subsystem {
     }
 
     public void changeBottomLimit(){
-        bottomLimit = -37;
+        if(lift == false){
+            bottomLimit = -37;
+            LOGGER.warning("Changed limit, lets Lift!");
+            lift = true;
+        }
+
     }
     /**
      * Stops the lift by setting the speed to zero.

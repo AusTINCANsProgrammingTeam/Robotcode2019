@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2158.robot.subsystem.drive.DriveSubsystem;
+import frc.team2158.robot.subsystem.drive.GearMode;
 import frc.team2158.robot.subsystem.drive.StopSubsystem;
 import frc.team2158.robot.subsystem.drive.StopSubsystem.StopDirection;
 import frc.team2158.robot.subsystem.intake.IntakeSubsystem;
@@ -81,6 +82,7 @@ public class Robot extends TimedRobot {
         new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
                 RobotMap.GEARBOX_REVERSE_CHANNEL)
 );
+Robot.getDriveSubsystem().setGearMode(GearMode.LOW);
         
         LOGGER.info("Drive Subsystem Initialized properly!");
         // Initialize the arm subsystem.
@@ -211,7 +213,7 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
         //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
         //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
-        operatorInterface.bindButton("button10", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
+        operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
 
 
         
