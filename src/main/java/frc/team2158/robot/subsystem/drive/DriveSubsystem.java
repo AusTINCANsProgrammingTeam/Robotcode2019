@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.logging.Logger;
 /**
@@ -28,7 +31,6 @@ public class DriveSubsystem extends Subsystem {
     public DriveSubsystem(SpeedController leftSpeedController, SpeedController rightSpeedController,
                           DoubleSolenoid gearboxSolenoid) {
         this.differentialDrive = new DifferentialDrive(leftSpeedController, rightSpeedController);
-        differentialDrive.setDeadband(.15);
         //differentialDrive.setSafetyEnabled(false);
         this.gearboxSolenoid = gearboxSolenoid;
         setGearMode(Value.kForward); //todo maybe this is part of the "every/other" bug?
@@ -75,9 +77,11 @@ public class DriveSubsystem extends Subsystem {
         switch(gearboxSolenoid.get()) {
             case kForward:
                 setGearMode(DoubleSolenoid.Value.kReverse);
+                SmartDashboard.putString("GearMode", "High");
                 break;
             case kReverse:
                 setGearMode(DoubleSolenoid.Value.kForward);
+                SmartDashboard.putString("GearMode", "Low");
                 break;
             case kOff:
                 break;

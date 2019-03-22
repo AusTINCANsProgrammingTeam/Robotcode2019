@@ -18,10 +18,7 @@ public class ToggleGearMode extends Command {
     @Override
     protected void initialize() {
         Robot.getDriveSubsystem().toggleGearMode();
-<<<<<<< HEAD
-=======
         //LOGGER.info(String.format("GearMode has been toggled to %s!", Robot.getDriveSubsystem().getGearMode()));
->>>>>>> gearboxbullshit
     }
 
     @Override
