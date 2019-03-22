@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2158.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,6 +22,7 @@ public class DriveSubsystem extends Subsystem {
     private DifferentialDrive differentialDrive;
     private GearMode gearMode = GearMode.LOW;
     private DoubleSolenoid gearboxSolenoid;
+    private boolean held;
 
     /**
      * This initializes the drive subsystem.
@@ -51,6 +53,7 @@ public class DriveSubsystem extends Subsystem {
      * @param heading heading
      */
     public void arcadeDrive(double velocity, double heading) {
+      
         differentialDrive.arcadeDrive(velocity, heading * .70, true);
     }
 
@@ -60,6 +63,10 @@ public class DriveSubsystem extends Subsystem {
      */
     public GearMode getGearMode() {
         return gearMode;
+    }
+
+    public void holdVision(){
+        held = true;
     }
 
     /**
@@ -94,5 +101,6 @@ public class DriveSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
+        held = false;
     }
 }

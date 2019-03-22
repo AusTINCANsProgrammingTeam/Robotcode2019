@@ -6,6 +6,10 @@ import frc.team2158.robot.command.drive.OperatorControl;
 import frc.team2158.robot.command.drive.ToggleGearMode;
 import frc.team2158.robot.command.intake.*;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.networktables.EntryListenerFlags;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,6 +48,7 @@ public class Robot extends TimedRobot {
     private static SelfLift selfLiftSubsystem;
 
     private static OperatorInterface operatorInterface;
+  
     
     //this runs after robotinit
     @Override
@@ -63,8 +68,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(320, 240);
+        
+        /*UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(320, 240);*/
         driveSubsystem = new DriveSubsystem(
             new SparkMaxGroup(
                 new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
