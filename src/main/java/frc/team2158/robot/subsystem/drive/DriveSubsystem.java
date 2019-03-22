@@ -2,6 +2,7 @@ package frc.team2158.robot.subsystem.drive;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -15,7 +16,7 @@ public class DriveSubsystem extends Subsystem {
     private static final Logger LOGGER = Logger.getLogger(DriveSubsystem.class.getName());
 
     private DifferentialDrive differentialDrive;
-    private GearMode gearMode;
+    private GearMode gearMode = GearMode.LOW;
     private DoubleSolenoid gearboxSolenoid;
 
     /**
@@ -30,7 +31,7 @@ public class DriveSubsystem extends Subsystem {
         differentialDrive.setDeadband(.15);
         //differentialDrive.setSafetyEnabled(false);
         this.gearboxSolenoid = gearboxSolenoid;
-        setGearMode(GearMode.LOW); //todo maybe this is part of the "every/other" bug?
+        setGearMode(Value.kForward); //todo maybe this is part of the "every/other" bug?
         LOGGER.info("Drive subsystem initialization complete!");
     }
 
@@ -63,39 +64,29 @@ public class DriveSubsystem extends Subsystem {
      * Sets the gear mode
      * @param gearMode mode to set the gear
      */
-    public void setGearMode(GearMode gearMode) {
-        this.gearMode = gearMode;
-        updateGearMode();
+    public void setGearMode(DoubleSolenoid.Value state) {
+        gearboxSolenoid.set(state);
     }
 
     /**
      * Easy way to change the gear mode after being set.
      */
     public void toggleGearMode() {
-        switch(gearMode) {
-            case HIGH:
-                gearMode = GearMode.LOW;
+        switch(gearboxSolenoid.get()) {
+            case kForward:
+                setGearMode(DoubleSolenoid.Value.kReverse);
                 break;
-            case LOW:
-                gearMode = GearMode.HIGH;
+            case kReverse:
+                setGearMode(DoubleSolenoid.Value.kForward);
+                break;
+            case kOff:
                 break;
         }
-        updateGearMode();
     }
 
     /**
      * Changes gear mode internally
      */
-    private void updateGearMode() {
-        switch(gearMode) {
-            case HIGH:
-                gearboxSolenoid.set(DoubleSolenoid.Value.kForward);
-                break;
-            case LOW:
-                gearboxSolenoid.set(DoubleSolenoid.Value.kReverse);
-                break;
-        }
-    }
 
     @Override
     protected void initDefaultCommand() {

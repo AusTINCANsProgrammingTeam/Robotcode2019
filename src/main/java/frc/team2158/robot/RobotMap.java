@@ -27,8 +27,8 @@ public class RobotMap {
 
     // Pneumatic system.
     public static final int PCM_ADDRESS = 1;
-    public static final int GEARBOX_FORWARD_CHANNEL = 0;
-    public static final int GEARBOX_REVERSE_CHANNEL = 7;
+    public static final int GEARBOX_FORWARD_CHANNEL = 0; //0
+    public static final int GEARBOX_REVERSE_CHANNEL = 7; //7
 
     // Lift motors Sparks.
     //public static final int LIFT_MOTOR_1 = 9;
@@ -38,8 +38,8 @@ public class RobotMap {
     // Intake motors and pneumatics.
     public static final int LEFT_INTAKE_MOTOR = 0;
     
-    public static final int INTAKE_SOLENOID_FOWARD = 1;
-    public static final int INTAKE_SOLENOID_REVERSE = 6;
+    public static final int INTAKE_SOLENOID_FOWARD = 1; //1
+    public static final int INTAKE_SOLENOID_REVERSE = 6; //6
 
     // Port for the joystick.
     //Stretch Goal: Move this out and make a XML based input config system.
