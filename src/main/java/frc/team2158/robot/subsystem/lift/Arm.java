@@ -103,16 +103,16 @@ public class Arm extends Subsystem {
      */
     public void moveLift() {
                 if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) < -.15 && upLimit.get() == false){
-                    if(rotations < topLimit ){
-                         rotations = rotations + .4;
-                    }
+                    if(rotations < topLimit){
+                         rotations = rotations + .4 * Math.abs(Robot.getOperatorInterface().getOperatorController().getRawAxis(1));
+                    }                   
                     //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     //LOGGER.warning(rotations + "");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
                 else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) > .15){
                     if(rotations > bottomLimit){
-                        rotations = rotations - .4;
+                        rotations = rotations - .4 * Math.abs(Robot.getOperatorInterface().getOperatorController().getRawAxis(1));
                     }
                     //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);

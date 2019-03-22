@@ -27,6 +27,7 @@ public class DriveSubsystem extends Subsystem {
     public DriveSubsystem(SpeedController leftSpeedController, SpeedController rightSpeedController,
                           DoubleSolenoid gearboxSolenoid) {
         this.differentialDrive = new DifferentialDrive(leftSpeedController, rightSpeedController);
+        differentialDrive.setDeadband(.15);
         //differentialDrive.setSafetyEnabled(false);
         this.gearboxSolenoid = gearboxSolenoid;
         setGearMode(GearMode.LOW); //todo maybe this is part of the "every/other" bug?
