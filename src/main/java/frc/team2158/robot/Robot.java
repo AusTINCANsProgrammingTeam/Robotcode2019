@@ -64,8 +64,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         
-        /*UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(320, 240);*/
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(320, 240);
         driveSubsystem = new DriveSubsystem(
             new SparkMaxGroup(
                 new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
@@ -81,13 +81,11 @@ public class Robot extends TimedRobot {
                 RobotMap.GEARBOX_REVERSE_CHANNEL)
 );
         
-        LOGGER.info("Drive Subsystem Initialized properly!");
         // Initialize the arm subsystem.
         armSubsystem = new Arm(RobotMap.ARM_MOTOR
             //new CANSparkMax(RobotMap.ARM_MOTOR, MotorType.kBrushless)
         );
         selfLiftSubsystem = new SelfLift(RobotMap.SELF_LIFT_MOTOR_1, RobotMap.SELF_LIFT_MOTOR_2);
-        LOGGER.info("Arm Subsystem Initialized properly!");
         stopSubsystem = new StopSubsystem(
             new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.HARD_STOP_FOWARD, RobotMap.HARD_STOP_BACK)
         );
@@ -96,12 +94,10 @@ public class Robot extends TimedRobot {
                 new Spark(RobotMap.LEFT_INTAKE_MOTOR),
                 new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.INTAKE_SOLENOID_FOWARD, RobotMap.INTAKE_SOLENOID_REVERSE)
         );
-        LOGGER.info("Intake Subsystem Initialized properly!");
         // Initialize the operator interface.
         operatorInterface = new OperatorInterface();
 
 
-        LOGGER.info("Robot initialization completed.");
         
         //raise the hard stop
         stopSubsystem.raiseStop(StopDirection.UP); //do we need to run this? it initializes with the value already up
@@ -179,7 +175,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
 
-        LOGGER.info("Teleop Init!");
         setup();
     }
 

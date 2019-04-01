@@ -29,7 +29,6 @@ public class RunSelfLift extends Command {
      */
     @Override
     protected void initialize() {
-        //Robot.getLiftSubsystem().moveLift(direction, speed);
     }
     /**
      * Runs the command

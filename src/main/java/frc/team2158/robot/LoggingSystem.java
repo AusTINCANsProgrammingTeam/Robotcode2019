@@ -61,7 +61,6 @@ public class LoggingSystem {
         logger.addHandler(fileHandler);
 
         // Tell the Logger that we've finished initializing the LoggingSystem and that nothing *super* bad has happened.
-        LOGGER.info("Initialized logging system.");
     }
 
     /**

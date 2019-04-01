@@ -46,7 +46,6 @@ public class SelfLift extends Subsystem {
      * @param inverted If the lift is inverted or not
      */
     public SelfLift(int deviceID_1, int deviceID_2) {
-        joystick = new Joystick(0);
         motor1 = new CANSparkMax(deviceID_1, MotorType.kBrushless);
        /* m_pidController = motor1.getPIDController();
         m_encoderLift = motor1.getEncoder();
@@ -80,7 +79,6 @@ public class SelfLift extends Subsystem {
        
     
        // liftSpeedController.setInverted(inverted);
-        LOGGER.info("Lift subsystem initialization complete!");
     }
     /**
      * Moves the lift.

@@ -94,7 +94,6 @@ public class Arm extends Subsystem {
        
     
        // liftSpeedController.setInverted(inverted);
-        LOGGER.info("Lift subsystem initialization complete!");
     }
     /**
      * Moves the lift.
@@ -122,7 +121,8 @@ public class Arm extends Subsystem {
     public void changeBottomLimit(){
         if(lift == false){
             bottomLimit = -37;
-            LOGGER.warning("Changed limit, lets Lift!");
+            m_pidController.setOutputRange(-1, 1);
+            liftSpeedController.setSmartCurrentLimit(80);
             lift = true;
         }
 

@@ -40,7 +40,6 @@ public class IntakeSubsystem extends Subsystem {
         this.leftSpeedController = intakeSpeedController;
         this.solenoid = solenoid;
         setDoubleSolenoidState(DoubleSolenoid.Value.kForward);
-        LOGGER.info("Intake subsystem initialization complete!");
     }
 
     /**

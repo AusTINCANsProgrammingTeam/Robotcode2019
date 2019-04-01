@@ -35,7 +35,6 @@ public class DriveSubsystem extends Subsystem {
         //differentialDrive.setSafetyEnabled(false);
         this.gearboxSolenoid = gearboxSolenoid;
         setGearMode(Value.kForward); //todo maybe this is part of the "every/other" bug?
-        LOGGER.info("Drive subsystem initialization complete!");
     }
 
     /**

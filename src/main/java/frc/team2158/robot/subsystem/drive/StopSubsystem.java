@@ -46,7 +46,6 @@ public enum StopDirection {UP, DOWN/*, CLOCKWISE, COUNTERCLOCKWISE*/}
 
         this.solenoid = solenoid;
         setDoubleSolenoidState(DoubleSolenoid.Value.kReverse);
-        LOGGER.info("Stop subsystem initialization complete!");
     }
 
     /**
