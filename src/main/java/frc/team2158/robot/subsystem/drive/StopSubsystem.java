@@ -65,6 +65,22 @@ public enum StopDirection {UP, DOWN/*, CLOCKWISE, COUNTERCLOCKWISE*/}
                 break;
 
         }
+
+        
+    }
+    public void toggleStopSolenoid(){
+        switch(solenoid.get()){
+            case kForward:
+                solenoid.set(Value.kReverse);
+                break;
+            case kReverse:
+                solenoid.set(Value.kForward);
+                break;
+            case kOff:
+                break;
+
+        }
+
     }
 
     

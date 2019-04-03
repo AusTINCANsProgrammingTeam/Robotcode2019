@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team2158.robot.command.drive.DriveMode;
 import frc.team2158.robot.command.drive.OperatorControl;
 import frc.team2158.robot.command.drive.ToggleGearMode;
+import frc.team2158.robot.command.drive.ToggleHardStop;
 import frc.team2158.robot.command.intake.*;
 import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTable;
@@ -248,10 +249,11 @@ public class Robot extends TimedRobot {
         operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
         //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
         //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
-        operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
+        //operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
         operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleFowardPistons(), 1);
         operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleBackPistons(), 1);
         operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new EnablePistons(), 1);
+        operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleHardStop(), 1);
 
 
         

@@ -6,7 +6,6 @@ import frc.team2158.robot.subsystem.drive.StopSubsystem;
 import frc.team2158.robot.subsystem.drive.StopSubsystem.StopDirection;
 
 import java.util.logging.Logger;
-//this class isnt being used anywhere - why?
 public class HardStop extends Command {
     StopDirection direction = StopDirection.UP;
     private static final Logger LOGGER = Logger.getLogger(HardStop.class.getName());
