@@ -27,6 +27,9 @@ public class RobotMap {
 
     // Pneumatic system.
     public static final int PCM_ADDRESS = 1;
+    public static final int PCM_2_ADDRESS = 2;
+    public static final int GEARBOX_2_FORWARD_CHANNEL = 3;
+    public static final int GEARBOX_2_REVERSE_CHANNEL = 4;
     public static final int GEARBOX_FORWARD_CHANNEL = 0; //0
     public static final int GEARBOX_REVERSE_CHANNEL = 7; //7
 
@@ -44,5 +47,17 @@ public class RobotMap {
     // Port for the joystick.
     //Stretch Goal: Move this out and make a XML based input config system.
     public static final int JOYSTICK_PORT = 0;
+
+    //ports for foward pitons for climb
+    public static final int FOWARD_PISTON_1_FOWARD = 0;
+    public static final int FOWARD_PISTON_1_REVERSE = 1;
+    public static final int FOWARD_PISTON_2_FOWARD = 2;
+    public static final int FOWARD_PISTON_2_REVERSE = 3;
+
+    //ports for back pistons for climb
+    public static final int BACK_PISTON_1_FOWARD = 4;
+    public static final int BACK_PISTON_1_RESVERSE = 5;
+    public static final int BACK_PISTON_2_FOWARD = 6;
+    public static final int BACK_PISTON_2_REVERSE = 7;
 
 }

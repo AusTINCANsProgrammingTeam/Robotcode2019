@@ -5,7 +5,10 @@ import frc.team2158.robot.command.drive.DriveMode;
 import frc.team2158.robot.command.drive.OperatorControl;
 import frc.team2158.robot.command.drive.ToggleGearMode;
 import frc.team2158.robot.command.intake.*;
-import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.networktables.EntryListenerFlags;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,12 +17,15 @@ import frc.team2158.robot.subsystem.drive.StopSubsystem;
 import frc.team2158.robot.subsystem.drive.StopSubsystem.StopDirection;
 import frc.team2158.robot.subsystem.intake.IntakeSubsystem;
 import frc.team2158.robot.subsystem.lift.Arm;
+import frc.team2158.robot.subsystem.lift.PistonLiftSubsystem;
+import frc.team2158.robot.subsystem.lift.SelfLift;
+import frc.team2158.robot.command.lift.*;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.cscore.UsbCamera;
 import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
 import frc.team2158.robot.subsystem.lift.SelfLift;
-//import frc.team2158.robot.command.lift.RunSelfLift;
-import frc.team2158.robot.command.lift.ChangeLimit;
 
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
@@ -32,7 +38,6 @@ import java.util.logging.Logger;
  * Initializes the teleOperated code.
  */
 public class Robot extends TimedRobot {
-    private SendableChooser<Double> autoChooser;
     private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
     private static final LoggingSystem LOGGING_SYSTEM = LoggingSystem.getInstance();
 
@@ -40,10 +45,14 @@ public class Robot extends TimedRobot {
     private static Arm armSubsystem;
     private static IntakeSubsystem intakeSubsystem;
     private static StopSubsystem stopSubsystem;
-    private static SelfLift selfLiftSubsystem;
+    private static PistonLiftSubsystem pistonLiftSubsystem;
+    
+     private static SelfLift selfLiftSubsystem;
 
     private static OperatorInterface operatorInterface;
-  
+    private NetworkTableEntry ratioEntry;//why is the networktable stuff not used
+    private NetworkTable table;
+    public static double ratio = -1;
     
     //this runs after robotinit
     @Override
@@ -64,8 +73,12 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(320, 240);
+
+        //UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+        //camera1.setResolution(320, 240);
+        //UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+        //camera2.setResolution(320, 240);
+        // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
             new SparkMaxGroup(
                 new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
@@ -78,26 +91,48 @@ public class Robot extends TimedRobot {
                 new CANSparkMax(RobotMap.RIGHT_MOTOR_3, MotorType.kBrushless)
         ),
         new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
-                RobotMap.GEARBOX_REVERSE_CHANNEL)
+                RobotMap.GEARBOX_REVERSE_CHANNEL),
+        //dont change the pcm address 
+        new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_2_FORWARD_CHANNEL, RobotMap.GEARBOX_2_REVERSE_CHANNEL)
 );
+
+
         
+        LOGGER.info("Drive Subsystem Initialized properly!");
+        
+        pistonLiftSubsystem = new PistonLiftSubsystem(
+                new DoubleSolenoid(RobotMap.PCM_2_ADDRESS, RobotMap.FOWARD_PISTON_1_FOWARD, RobotMap.FOWARD_PISTON_1_REVERSE), 
+
+                new DoubleSolenoid(RobotMap.PCM_2_ADDRESS, RobotMap.FOWARD_PISTON_2_FOWARD, RobotMap.FOWARD_PISTON_2_REVERSE), 
+
+                new DoubleSolenoid(RobotMap.PCM_2_ADDRESS, RobotMap.BACK_PISTON_1_FOWARD, RobotMap.BACK_PISTON_1_RESVERSE), 
+
+                new DoubleSolenoid(RobotMap.PCM_2_ADDRESS, RobotMap.BACK_PISTON_2_FOWARD, RobotMap.BACK_PISTON_2_REVERSE)
+                );
+
+                SmartDashboard.putBoolean("PistonClimb", false);
+                //make sure pcm board is configured to >>2<<
+                //PRESS 9 FIRST TO SET THE CLIMB - 3 IS FORWARD PISTONS - 1 IS BACKWARD PISTONS
         // Initialize the arm subsystem.
         armSubsystem = new Arm(RobotMap.ARM_MOTOR
             //new CANSparkMax(RobotMap.ARM_MOTOR, MotorType.kBrushless)
         );
-        selfLiftSubsystem = new SelfLift(RobotMap.SELF_LIFT_MOTOR_1, RobotMap.SELF_LIFT_MOTOR_2);
+       /* selfLiftSubsystem = new SelfLift(RobotMap.SELF_LIFT_MOTOR_1, RobotMap.SELF_LIFT_MOTOR_2);
+        LOGGER.info("Arm Subsystem Initialized properly!");
         stopSubsystem = new StopSubsystem(
             new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.HARD_STOP_FOWARD, RobotMap.HARD_STOP_BACK)
-        );
+        );*/
         // Initialize the intake subsystem.
         intakeSubsystem = new IntakeSubsystem(
                 new Spark(RobotMap.LEFT_INTAKE_MOTOR),
                 new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.INTAKE_SOLENOID_FOWARD, RobotMap.INTAKE_SOLENOID_REVERSE)
         );
+        LOGGER.info("Intake Subsystem Initialized properly!");
         // Initialize the operator interface.
         operatorInterface = new OperatorInterface();
 
 
+        LOGGER.info("Robot initialization completed.");
         
         //raise the hard stop
         stopSubsystem.raiseStop(StopDirection.UP); //do we need to run this? it initializes with the value already up
@@ -126,6 +161,13 @@ public class Robot extends TimedRobot {
         throw new RuntimeException("Drive subsystem has not yet been initialized!");
     }
 
+    public static PistonLiftSubsystem getPistonLiftSubsystem(){
+        if(pistonLiftSubsystem != null){
+            return pistonLiftSubsystem;
+        }
+        throw new RuntimeException("Piston subsystem has not yet been initialized");
+    }
+
     /**
      * Returns the instance of the lift subsystem.
      * @return the instance of the lift subsystem.
@@ -138,7 +180,7 @@ public class Robot extends TimedRobot {
     }
 
     public static SelfLift getSelfLiftSubsystem() {
-        if(selfLiftSubsystem != null){
+        if(selfLiftSubsystem!= null) {
             return selfLiftSubsystem;
         }
         throw new RuntimeException("Self Lift subsystem has not yet been initialized!");
@@ -175,6 +217,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
 
+        LOGGER.info("Teleop Init!");
         setup();
     }
 
@@ -206,6 +249,9 @@ public class Robot extends TimedRobot {
         //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
         //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
         operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
+        operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleFowardPistons(), 1);
+        operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleBackPistons(), 1);
+        operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new EnablePistons(), 1);
 
 
         

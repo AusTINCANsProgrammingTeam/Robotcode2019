@@ -44,6 +44,7 @@ public class OperatorInterface {
             put("buttonStart", new JoystickButton(driveController, 8));
             put("buttonLeftJoystick", new JoystickButton(driveController, 9));
             put("buttonRightJoystick", new JoystickButton(driveController, 10));
+            put("buttonRightArrow", new JoystickButton(driveController, 0));
             //left joystick X axis is 0, Y axis 1
             //Right joy stick X axis is 4, Y axis 5
         }};

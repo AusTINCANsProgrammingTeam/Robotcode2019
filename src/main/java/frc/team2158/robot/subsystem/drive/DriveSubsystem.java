@@ -21,6 +21,7 @@ public class DriveSubsystem extends Subsystem {
 
     private DifferentialDrive differentialDrive;
     private DoubleSolenoid gearboxSolenoid;
+    private DoubleSolenoid gearboxSolenoid2;
     private boolean held;
 
     /**
@@ -30,10 +31,11 @@ public class DriveSubsystem extends Subsystem {
      * @param gearboxSolenoid Solenoid to be initialized.
      */
     public DriveSubsystem(SpeedController leftSpeedController, SpeedController rightSpeedController,
-                          DoubleSolenoid gearboxSolenoid) {
+                          DoubleSolenoid gearboxSolenoid, DoubleSolenoid gearboxSolenoid2) {
         this.differentialDrive = new DifferentialDrive(leftSpeedController, rightSpeedController);
         //differentialDrive.setSafetyEnabled(false);
         this.gearboxSolenoid = gearboxSolenoid;
+        this.gearboxSolenoid2 = gearboxSolenoid2;
         setGearMode(Value.kForward); //todo maybe this is part of the "every/other" bug?
     }
 
@@ -69,6 +71,7 @@ public class DriveSubsystem extends Subsystem {
      */
     public void setGearMode(DoubleSolenoid.Value state) {
         gearboxSolenoid.set(state);
+        gearboxSolenoid2.set(state);
     }
 
     /**
