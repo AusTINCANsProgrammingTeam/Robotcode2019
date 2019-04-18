@@ -54,7 +54,7 @@ public class DriveSubsystem extends Subsystem {
      */
     public void arcadeDrive(double velocity, double heading) {
       
-        differentialDrive.arcadeDrive(velocity, heading * .70, true);
+        differentialDrive.arcadeDrive(velocity, heading * .7, true);
     }
 
     /**

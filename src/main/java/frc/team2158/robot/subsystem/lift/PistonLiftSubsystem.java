@@ -33,6 +33,7 @@ public class PistonLiftSubsystem extends Subsystem {
     private Boolean enabled = false;
 
 
+    private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
 
 
     public PistonLiftSubsystem(DoubleSolenoid FowardSolenoid_1, DoubleSolenoid FowardSolenoid_2, DoubleSolenoid BackSolenoid_1, 
@@ -40,7 +41,11 @@ public class PistonLiftSubsystem extends Subsystem {
         this.FowardSolenoid_1 = FowardSolenoid_1;
         this.FowardSolenoid_2 = FowardSolenoid_2;
         this.BackSolenoid_1 = BackSolenoid_1;
-        this.BackSolenoid_2 = BackSolenoid_2;
+        this.BackSolenoid_2 = backSolenoid_2;
+        this.BackSolenoid_1.set(Value.kForward);
+        this.BackSolenoid_2.set(Value.kForward);
+        this.FowardSolenoid_1.set(Value.kReverse);
+        this.FowardSolenoid_2.set(Value.kReverse);
 
 
     }
@@ -52,6 +57,7 @@ public class PistonLiftSubsystem extends Subsystem {
     }
 
     public void toggleFowardPistons(){
+        LOGGER.info("Forward");
         if(enabled){
           switch(FowardSolenoid_1.get()){
             case kForward:
@@ -69,6 +75,7 @@ public class PistonLiftSubsystem extends Subsystem {
     }
 
     public void toggleBackPistons(){
+        LOGGER.info("Backward");
         if(enabled){
          switch(BackSolenoid_1.get()){
             case kForward:

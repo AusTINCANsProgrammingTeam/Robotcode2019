@@ -19,7 +19,7 @@ public class EnablePistons extends Command {
      * @param direction Either UP or DOWN
      * @param speed Speed of lift
      */
-    public EnablePistons() {
+    public EnablePistons() {        
         requires(Robot.getPistonLiftSubsystem());
     }
 

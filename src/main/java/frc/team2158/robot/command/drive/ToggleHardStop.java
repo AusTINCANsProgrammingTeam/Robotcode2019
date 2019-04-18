@@ -18,7 +18,6 @@ public class ToggleHardStop extends Command {
     @Override
     protected void initialize() {
         Robot.getStopSubsystem().toggleStopSolenoid();
-        
     }
 
     @Override

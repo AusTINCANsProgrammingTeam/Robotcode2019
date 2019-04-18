@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.team2158.robot.Robot;
 import frc.team2158.robot.command.intake.StopIntake;
 
 import java.util.logging.Logger;
@@ -69,18 +70,21 @@ public enum StopDirection {UP, DOWN/*, CLOCKWISE, COUNTERCLOCKWISE*/}
         
     }
     public void toggleStopSolenoid(){
+        boolean hardStop = true;
         switch(solenoid.get()){
             case kForward:
                 solenoid.set(Value.kReverse);
+                hardStop = true;
                 break;
             case kReverse:
                 solenoid.set(Value.kForward);
+                hardStop = false;
                 break;
             case kOff:
+                hardStop = true;
                 break;
-
         }
-
+        Robot.getLiftSubsystem().restrictArmMotor(hardStop);
     }
 
     

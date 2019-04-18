@@ -13,6 +13,7 @@ public class SparkMaxGroup implements SpeedController {
     private CANSparkMax master;
     private CANPIDController m_pidController;
     private CANEncoder m_encoder;
+    private CANSparkMax [] slaves;
 
 
     /**
@@ -22,12 +23,13 @@ public class SparkMaxGroup implements SpeedController {
      * @param slaves the slave motors. Follow the master motor.
      */
     public SparkMaxGroup(CANSparkMax master, CANSparkMax... slaves) {
+        this.slaves = slaves;
         this.master = master;
         m_encoder = master.getEncoder();
         m_pidController = master.getPIDController();
         master.restoreFactoryDefaults();
         for(CANSparkMax slave : slaves) {
-            slave.follow(master);
+            //slave.follow(master);
             slave.restoreFactoryDefaults();
         }
     }
@@ -39,6 +41,10 @@ public class SparkMaxGroup implements SpeedController {
     @Override
     public void pidWrite(double output) {
         master.pidWrite(output);
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.pidWrite(output);
+        }
     }
 
     /**
@@ -48,6 +54,10 @@ public class SparkMaxGroup implements SpeedController {
     @Override
     public void set(double speed) {
         master.set(speed);
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.set(speed);
+        }
     }
 
 
@@ -67,6 +77,10 @@ public class SparkMaxGroup implements SpeedController {
     @Override
     public void setInverted(boolean isInverted) {
         master.setInverted(isInverted);
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.setInverted(isInverted);
+        }
     }
 
     /**
@@ -84,6 +98,10 @@ public class SparkMaxGroup implements SpeedController {
     @Override
     public void disable() {
         master.disable();
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.disable();;
+        }
     }
 
     /**
@@ -92,5 +110,9 @@ public class SparkMaxGroup implements SpeedController {
     @Override
     public void stopMotor() {
         master.stopMotor();
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.stopMotor();
+        }
     }
 }

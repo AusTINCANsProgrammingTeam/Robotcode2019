@@ -15,7 +15,7 @@ public class HardStop extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.getStopSubsystem().raiseStop(direction);
+        //Robot.getStopSubsystem().raiseStop(direction);
         //LOGGER.info(String.format("GearMode has been toggled to %s!", Robot.getDriveSubsystem().getGearMode()));
     }
 

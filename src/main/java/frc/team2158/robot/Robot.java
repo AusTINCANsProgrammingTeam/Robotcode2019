@@ -61,11 +61,13 @@ public class Robot extends TimedRobot {
         //will this ^^^ be run before the match starts? 
         //because there may be issues if it tries to reset itself while being locked by a solenoid
         SmartDashboard.putBoolean("UpLimit", armSubsystem.getUpLimit());
+        SmartDashboard.putBoolean("DownLimit", armSubsystem.getDownLimit());
     }
 
     @Override
     public void disabledPeriodic(){
         SmartDashboard.putBoolean("UpLimit", armSubsystem.getUpLimit());
+        SmartDashboard.putBoolean("DownLimit", armSubsystem.getDownLimit());
     }
 
     /**
@@ -75,8 +77,8 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         
 
-        //UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-        //camera1.setResolution(320, 240);
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+        camera1.setResolution(320, 240);
         //UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
         //camera2.setResolution(320, 240);
         // Initialize the drive subsystem.
@@ -119,10 +121,10 @@ public class Robot extends TimedRobot {
             //new CANSparkMax(RobotMap.ARM_MOTOR, MotorType.kBrushless)
         );
        /* selfLiftSubsystem = new SelfLift(RobotMap.SELF_LIFT_MOTOR_1, RobotMap.SELF_LIFT_MOTOR_2);
-        LOGGER.info("Arm Subsystem Initialized properly!");
+        LOGGER.info("Arm Subsystem Initialized properly!");*/
         stopSubsystem = new StopSubsystem(
             new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.HARD_STOP_FOWARD, RobotMap.HARD_STOP_BACK)
-        );*/
+        );
         // Initialize the intake subsystem.
         intakeSubsystem = new IntakeSubsystem(
                 new Spark(RobotMap.LEFT_INTAKE_MOTOR),
@@ -136,7 +138,7 @@ public class Robot extends TimedRobot {
         LOGGER.info("Robot initialization completed.");
         
         //raise the hard stop
-        stopSubsystem.raiseStop(StopDirection.UP); //do we need to run this? it initializes with the value already up
+        //stopSubsystem.raiseStop(StopDirection.UP); //do we need to run this? it initializes with the value already up
     
     }
 
@@ -168,6 +170,7 @@ public class Robot extends TimedRobot {
         }
         throw new RuntimeException("Piston subsystem has not yet been initialized");
     }
+    
 
     /**
      * Returns the instance of the lift subsystem.
@@ -197,6 +200,7 @@ public class Robot extends TimedRobot {
         }
         throw new RuntimeException("Intake subsystem has not yet been initialized!");
     }
+
     public static StopSubsystem getStopSubsystem(){
         if(stopSubsystem != null){
             return stopSubsystem;
@@ -241,24 +245,24 @@ public class Robot extends TimedRobot {
     public void setup(){
         operatorInterface.bindButton("buttonRB", OperatorInterface.ButtonMode.WHILE_HELD, new Intake(),1);
         operatorInterface.bindButton("buttonRT", OperatorInterface.ButtonMode.WHILE_HELD, new Outtake(), 1);
-        operatorInterface.bindButton("button2", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleHatchSolenoid(), 1);
+        operatorInterface.bindButton("button2", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleHatchSolenoid(), 1);
         //operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftUp(), 1);
         //operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
         operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
         operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
-        operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
+        operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleGearMode(), 0);
         //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
         //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
         //operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
-        operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleFowardPistons(), 1);
-        operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleBackPistons(), 1);
+        operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleFowardPistons(), 1);
+        operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleBackPistons(), 1);
         operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new EnablePistons(), 1);
-        operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleHardStop(), 1);
+        operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleHardStop(), 1);
 
 
         
         Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
         
-        getStopSubsystem().raiseStop(StopDirection.UP);
+        //getStopSubsystem().raiseStop(StopDirection.UP);
         }
 }

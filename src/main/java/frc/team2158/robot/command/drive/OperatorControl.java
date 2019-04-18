@@ -38,7 +38,7 @@ public class OperatorControl extends Command {
                 driveSubsystem.tankDrive(joystick.getRawAxis(0), joystick.getRawAxis(1));
                 break;
             case ARCADE:
-                driveSubsystem.arcadeDrive(Math.pow(-joystick.getRawAxis(1), 3), Math.pow(-joystick.getRawAxis(4), 3));
+                driveSubsystem.arcadeDrive(Math.pow(-joystick.getRawAxis(1), 3), Math.pow(-joystick.getRawAxis(2), 3));
                 break;
         }
     }
