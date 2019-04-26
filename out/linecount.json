@@ -1,0 +1,1434 @@
+{
+    "extension": "linecount",
+    "version": "0.1.7",
+    "workspace": "c:\\Users\\Spike\\Desktop\\github\\Robotcode2019",
+    "linecount": [
+        {
+            "version": "0.1.7",
+            "counttime": "2019-02-26 16:30:13",
+            "filesum": 210,
+            "codesum": 1654,
+            "commentsum": 522,
+            "blanksum": 282,
+            "filelist": [
+                {
+                    "blank": 24,
+                    "code": 82,
+                    "comment": 57,
+                    "filename": ".gitignore"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": ".gradle\\5.0\\fileChanges\\last-build.bin"
+                },
+                {
+                    "filename": ".gradle\\5.0\\fileContent\\fileContent.lock",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\5.0\\fileHashes\\fileHashes.bin",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\5.0\\fileHashes\\fileHashes.lock",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\5.0\\fileHashes\\resourceHashesCache.bin",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": ".gradle\\5.0\\gc.properties"
+                },
+                {
+                    "filename": ".gradle\\5.0\\javaCompile\\classAnalysis.bin",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\5.0\\javaCompile\\jarAnalysis.bin",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\5.0\\javaCompile\\javaCompile.lock",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\5.0\\javaCompile\\taskHistory.bin",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\5.0\\taskHistory\\taskHistory.bin",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\5.0\\taskHistory\\taskHistory.lock",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": ".gradle\\buildOutputCleanup\\buildOutputCleanup.lock",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".gradle\\buildOutputCleanup\\cache.properties"
+                },
+                {
+                    "filename": ".gradle\\buildOutputCleanup\\outputFiles.bin",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0,
+                    "filename": ".gradle\\vcs-1\\gc.properties"
+                },
+                {
+                    "blank": 0,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": ".idea\\encodings.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": ".idea\\misc.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": ".idea\\modules.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": ".idea\\vcs.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 205,
+                    "comment": 0,
+                    "filename": ".idea\\workspace.xml"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": ".settings\\org.eclipse.buildship.core.prefs"
+                },
+                {
+                    "blank": 0,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": ".settings\\org.eclipse.jdt.core.prefs"
+                },
+                {
+                    "blank": 0,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": ".wpilib\\wpilib_preferences.json"
+                },
+                {
+                    "blank": 7,
+                    "code": 40,
+                    "comment": 17,
+                    "filename": "build.gradle"
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\drive\\DriveMode.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\drive\\HardStop.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\drive\\OperatorControl$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\drive\\OperatorControl.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\drive\\SetGearMode.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\drive\\ToggleGearMode.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\intake\\Intake.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\intake\\IntakeHalfSpeed.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\intake\\Outtake.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\intake\\OuttakeHalfSpeed.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\intake\\StopIntake.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\intake\\StopPivot.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\intake\\ToggleHatchSolenoid.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\lift\\MoveLift.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\lift\\MoveLiftDown.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\lift\\MoveLiftUp.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\command\\lift\\StopLift.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\LoggingSystem$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\LoggingSystem$2.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\LoggingSystem$CustomFormatter.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\LoggingSystem.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\Main.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\OperatorInterface$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\OperatorInterface$2.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\OperatorInterface$3.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\OperatorInterface$ButtonMode.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\OperatorInterface.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\Robot.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\RobotMap.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\drive\\DriveSubsystem$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\drive\\DriveSubsystem.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\drive\\GearMode.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\drive\\StopSubsystem$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\drive\\StopSubsystem$PivotDirection.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\drive\\StopSubsystem$StopDirection.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\drive\\StopSubsystem.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\intake\\IntakeSubsystem$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\intake\\IntakeSubsystem$IntakeDirection.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\intake\\IntakeSubsystem$PivotDirection.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\intake\\IntakeSubsystem.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\lift\\Arm$1.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\lift\\Arm$Direction.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\classes\\java\\main\\frc\\team2158\\robot\\subsystem\\lift\\Arm.class",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "build\\debug\\debuginfo.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "build\\debug\\desktopinfo.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "build\\debug\\partial\\Robotcode2019_java.json"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "build\\debug\\riopartial\\Robotcode2019.json"
+                },
+                {
+                    "filename": "build\\libs\\Robotcode2019.jar",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\canutils-5.13.0-windowsx86-64.zip_feae16ab54502e46720b749f030c2c60\\windows\\x86-64\\shared\\CTRE_PhoenixCanutils.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\canutils-5.14.0-windowsx86-64.zip_82b571e75eae903c1b215fa2581e9b9a\\windows\\x86-64\\shared\\CTRE_PhoenixCanutils.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\cci-5.13.0-linuxathenadebug.zip_d051d7f778914839e0eac56e4f7ba9d7\\linux\\athena\\shared\\libCTRE_PhoenixCCI.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\cci-5.13.0-windowsx86-64.zip_d82e6805a82ad8adeeac86eb0bb38842\\windows\\x86-64\\shared\\CTRE_PhoenixCCI.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\cci-5.14.0-windowsx86-64.zip_8faeaaaf43854563d0a1820a7454cb7e\\windows\\x86-64\\shared\\CTRE_PhoenixCCI.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\cscore-cpp-2019.2.1-linuxathenadebug.zip_4f45dea3fb847d4ba7b35368ea1072d5\\linux\\athena\\shared\\libcscored.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\cscore-cpp-2019.2.1-linuxathenadebug.zip_4f45dea3fb847d4ba7b35368ea1072d5\\linux\\athena\\shared\\libcscorejni.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\cscore-cpp-2019.2.1-windowsx86-64.zip_aa8ae32652d81acdec0a1c638d42a793\\windows\\x86-64\\shared\\cscore.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\cscore-cpp-2019.2.1-windowsx86-64.zip_aa8ae32652d81acdec0a1c638d42a793\\windows\\x86-64\\shared\\cscorejni.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\hal-cpp-2019.2.1-linuxathenadebug.zip_76c584b0493ff0500ce1d6f3ef6b735a\\linux\\athena\\shared\\libwpiHald.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\hal-cpp-2019.2.1-linuxathenadebug.zip_76c584b0493ff0500ce1d6f3ef6b735a\\linux\\athena\\shared\\libwpiHaljni.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\hal-cpp-2019.2.1-windowsx86-64.zip_9e49340072535bfc41bd1a0222d260af\\windows\\x86-64\\shared\\wpiHal.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\hal-cpp-2019.2.1-windowsx86-64.zip_9e49340072535bfc41bd1a0222d260af\\windows\\x86-64\\shared\\wpiHaljni.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\ntcore-cpp-2019.2.1-linuxathenadebug.zip_48965f5151da2472763e382bcfba8499\\linux\\athena\\shared\\libntcored.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\ntcore-cpp-2019.2.1-linuxathenadebug.zip_48965f5151da2472763e382bcfba8499\\linux\\athena\\shared\\libntcorejni.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\ntcore-cpp-2019.2.1-windowsx86-64.zip_57d5ab603e7b8ba5b92f2f4d9321c02e\\windows\\x86-64\\shared\\ntcore.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\ntcore-cpp-2019.2.1-windowsx86-64.zip_57d5ab603e7b8ba5b92f2f4d9321c02e\\windows\\x86-64\\shared\\ntcorejni.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_calib3dd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_calib3dd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_cored.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_cored.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_features2dd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_features2dd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_flannd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_flannd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_highguid.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_highguid.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_imgcodecsd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_imgcodecsd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_imgprocd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_imgprocd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_java344.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_java344.so.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_mld.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_mld.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_objdetectd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_objdetectd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_photod.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_photod.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_shaped.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_shaped.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_stitchingd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_stitchingd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_superresd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_superresd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_videod.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_videod.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_videoiod.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_videoiod.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_videostabd.so.3.4",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-linuxathenadebug.zip_fb1838f89a18efba82e3c679b6ef0c3b\\linux\\athena\\shared\\libopencv_videostabd.so.3.4.debug",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_calib3d344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_core344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_features2d344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_flann344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_highgui344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_imgcodecs344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_imgproc344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_java344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_ml344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_objdetect344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_photo344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_shape344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_stitching344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_superres344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_video344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_videoio344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\opencv-cpp-3.4.4-4-windowsx86-64.zip_8b328899bdab5d66c9209ca2ee4859ae\\windows\\x86-64\\shared\\opencv_videostab344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\platform-stub-5.13.0-windowsx86-64.zip_f3a9f4b485ba381f06446acd1611cfff\\windows\\x86-64\\shared\\CTRE_PhoenixPlatform.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\platform-stub-5.14.0-windowsx86-64.zip_9bbca0b1dc80788da98d9eed5cdb01a3\\windows\\x86-64\\shared\\CTRE_PhoenixPlatform.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\SparkMax-driver-1.1.5-linuxathenadebug.zip_b0b75c3878ae433c3fc171500673baf0\\linux\\athena\\shared\\libSparkMaxDriver.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\wpiutil-cpp-2019.2.1-linuxathenadebug.zip_702e83edb6b31c63492aac94ab4313e5\\linux\\athena\\shared\\libwpiutild.so",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\expandedArchives\\wpiutil-cpp-2019.2.1-windowsx86-64.zip_1a38e121496ac381d58dc3703a6994c0\\windows\\x86-64\\shared\\wpiutil.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "build\\tmp\\jar\\MANIFEST.MF"
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\cscore.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\cscorejni.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\CTRE_PhoenixCanutils.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\CTRE_PhoenixCCI.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\CTRE_PhoenixPlatform.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\ntcore.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\ntcorejni.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_calib3d344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_core344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_features2d344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_flann344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_highgui344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_imgcodecs344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_imgproc344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_java344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_ml344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_objdetect344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_photo344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_shape344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_stitching344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_superres344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_video344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_videoio344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\opencv_videostab344.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\wpiHal.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\wpiHaljni.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "build\\tmp\\jniExtractDir\\wpiutil.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "gradle\\wrapper\\gradle-wrapper.jar",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 1,
+                    "filename": "gradle\\wrapper\\gradle-wrapper.properties"
+                },
+                {
+                    "blank": 10,
+                    "code": 62,
+                    "comment": 0,
+                    "filename": "gradlew"
+                },
+                {
+                    "blank": 8,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "gradlew.bat"
+                },
+                {
+                    "blank": 0,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "Robotcode2019.iml"
+                },
+                {
+                    "blank": 1,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "settings.gradle"
+                },
+                {
+                    "blank": 0,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "src\\main\\deploy\\example.txt"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 3,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\drive\\DriveMode.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 16,
+                    "comment": 5,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\drive\\HardStop.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 31,
+                    "comment": 11,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\drive\\OperatorControl.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 21,
+                    "comment": 8,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\drive\\SetGearMode.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 14,
+                    "comment": 8,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\drive\\ToggleGearMode.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 20,
+                    "comment": 11,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\intake\\Intake.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 20,
+                    "comment": 11,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\intake\\IntakeHalfSpeed.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 20,
+                    "comment": 11,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\intake\\Outtake.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 20,
+                    "comment": 11,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\intake\\OuttakeHalfSpeed.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 18,
+                    "comment": 11,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\intake\\StopIntake.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 18,
+                    "comment": 7,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\intake\\StopPivot.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 21,
+                    "comment": 11,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\intake\\ToggleHatchSolenoid.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 17,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\lift\\MoveLift.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 25,
+                    "comment": 17,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\lift\\MoveLiftDown.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 25,
+                    "comment": 17,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\lift\\MoveLiftUp.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 18,
+                    "comment": 11,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\command\\lift\\StopLift.java"
+                },
+                {
+                    "blank": 10,
+                    "code": 47,
+                    "comment": 25,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\LoggingSystem.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\Main.java"
+                },
+                {
+                    "blank": 8,
+                    "code": 96,
+                    "comment": 32,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\OperatorInterface.java"
+                },
+                {
+                    "blank": 26,
+                    "code": 126,
+                    "comment": 46,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\Robot.java"
+                },
+                {
+                    "blank": 10,
+                    "code": 25,
+                    "comment": 12,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\RobotMap.java"
+                },
+                {
+                    "blank": 10,
+                    "code": 60,
+                    "comment": 37,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\subsystem\\drive\\DriveSubsystem.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 2,
+                    "comment": 5,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\subsystem\\drive\\GearMode.java"
+                },
+                {
+                    "blank": 29,
+                    "code": 54,
+                    "comment": 41,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\subsystem\\drive\\StopSubsystem.java"
+                },
+                {
+                    "blank": 20,
+                    "code": 88,
+                    "comment": 35,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\subsystem\\intake\\IntakeSubsystem.java"
+                },
+                {
+                    "blank": 17,
+                    "code": 113,
+                    "comment": 44,
+                    "filename": "src\\main\\java\\frc\\team2158\\robot\\subsystem\\lift\\Arm.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 126,
+                    "comment": 0,
+                    "filename": "vendordeps\\Phoenix.json"
+                },
+                {
+                    "blank": 4,
+                    "code": 51,
+                    "comment": 0,
+                    "filename": "vendordeps\\REVRobotics-Beta.json"
+                }
+            ]
+        }
+    ]
+}

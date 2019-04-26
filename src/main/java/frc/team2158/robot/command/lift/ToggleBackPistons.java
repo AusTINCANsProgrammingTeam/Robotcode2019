@@ -1,8 +1,9 @@
-package frc.team2158.robot.command.intake;
+package frc.team2158.robot.command.lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2158.robot.Robot;
 import frc.team2158.robot.subsystem.intake.IntakeSubsystem;
+import frc.team2158.robot.subsystem.lift.PistonLiftSubsystem;
 
 import java.util.logging.Logger;
 
@@ -11,15 +12,15 @@ import java.util.logging.Logger;
  * @version 0.0.1
  * Toggles the intake Solenoid
  */
-public class ToggleHatchSolenoid extends Command {
-    private static final Logger LOGGER = Logger.getLogger(ToggleHatchSolenoid.class.getName());
-    private IntakeSubsystem intakeSubsystem;
+public class ToggleBackPistons extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ToggleBackPistons.class.getName());
+    private  PistonLiftSubsystem pistonLiftSubsystem;
 
     /**
      * Instantiates the command
      */
-    public ToggleHatchSolenoid() {
-        this.intakeSubsystem = Robot.getIntakeSubsystem();
+    public ToggleBackPistons() {
+        this.pistonLiftSubsystem = Robot.getPistonLiftSubsystem();
     }
 
     /**
@@ -27,7 +28,7 @@ public class ToggleHatchSolenoid extends Command {
      */
     @Override
     protected void execute() {
-        intakeSubsystem.toggleSolenoidState();        
+        pistonLiftSubsystem.toggleBackPistons();    
     }
 
     @Override

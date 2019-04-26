@@ -2,8 +2,13 @@ package frc.team2158.robot.subsystem.drive;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2158.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.logging.Logger;
 /**
@@ -15,8 +20,9 @@ public class DriveSubsystem extends Subsystem {
     private static final Logger LOGGER = Logger.getLogger(DriveSubsystem.class.getName());
 
     private DifferentialDrive differentialDrive;
-    private GearMode gearMode;
     private DoubleSolenoid gearboxSolenoid;
+    private DoubleSolenoid gearboxSolenoid2;
+    private boolean held;
 
     /**
      * This initializes the drive subsystem.
@@ -25,12 +31,12 @@ public class DriveSubsystem extends Subsystem {
      * @param gearboxSolenoid Solenoid to be initialized.
      */
     public DriveSubsystem(SpeedController leftSpeedController, SpeedController rightSpeedController,
-                          DoubleSolenoid gearboxSolenoid) {
+                          DoubleSolenoid gearboxSolenoid, DoubleSolenoid gearboxSolenoid2) {
         this.differentialDrive = new DifferentialDrive(leftSpeedController, rightSpeedController);
-        differentialDrive.setSafetyEnabled(false);
+        //differentialDrive.setSafetyEnabled(false);
         this.gearboxSolenoid = gearboxSolenoid;
-        setGearMode(GearMode.LOW); //todo maybe this is part of the "every/other" bug?
-        LOGGER.info("Drive subsystem initialization complete!");
+        this.gearboxSolenoid2 = gearboxSolenoid2;
+        setGearMode(Value.kForward); //todo maybe this is part of the "every/other" bug?
     }
 
     /**
@@ -47,57 +53,51 @@ public class DriveSubsystem extends Subsystem {
      * @param heading heading
      */
     public void arcadeDrive(double velocity, double heading) {
-        differentialDrive.arcadeDrive(velocity, heading * .75, true);
+      
+        differentialDrive.arcadeDrive(velocity, heading * .7, true);
     }
 
     /**
      * Returns instance of gearMode
      * @return instance of gearMode
-     */
-    public GearMode getGearMode() {
-        return gearMode;
+    */
+    public void holdVision(){
+        held = true;
     }
 
     /**
      * Sets the gear mode
      * @param gearMode mode to set the gear
      */
-    public void setGearMode(GearMode gearMode) {
-        this.gearMode = gearMode;
-        updateGearMode();
+    public void setGearMode(DoubleSolenoid.Value state) {
+        gearboxSolenoid.set(state);
+        gearboxSolenoid2.set(state);
     }
 
     /**
      * Easy way to change the gear mode after being set.
      */
     public void toggleGearMode() {
-        switch(gearMode) {
-            case HIGH:
-                gearMode = GearMode.LOW;
+        switch(gearboxSolenoid.get()) {
+            case kForward:
+                setGearMode(DoubleSolenoid.Value.kReverse);
+                SmartDashboard.putString("GearMode", "High");
                 break;
-            case LOW:
-                gearMode = GearMode.HIGH;
+            case kReverse:
+                setGearMode(DoubleSolenoid.Value.kForward);
+                SmartDashboard.putString("GearMode", "Low");
                 break;
-                //default case? (in case of accidentally using it before setGearMode())
+            case kOff:
+                break;
         }
-        updateGearMode();
     }
 
     /**
      * Changes gear mode internally
      */
-    private void updateGearMode() {
-        switch(gearMode) {
-            case HIGH:
-                gearboxSolenoid.set(DoubleSolenoid.Value.kForward);
-                break;
-            case LOW:
-                gearboxSolenoid.set(DoubleSolenoid.Value.kReverse);
-                break;
-        }
-    }
 
     @Override
     protected void initDefaultCommand() {
+        held = false;
     }
 }

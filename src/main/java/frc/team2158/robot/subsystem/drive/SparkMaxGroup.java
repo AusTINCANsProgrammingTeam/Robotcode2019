@@ -1,14 +1,19 @@
 package frc.team2158.robot.subsystem.drive;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedController;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+
+import com.revrobotics.CANSparkMax;
 
 import java.util.logging.Logger;
 
-public class TalonSRXGroup implements SpeedController {
-    private static final Logger LOGGER = Logger.getLogger(TalonSRXGroup.class.getName());
-    private WPI_TalonSRX master;
+public class SparkMaxGroup implements SpeedController {
+    private static final Logger LOGGER = Logger.getLogger(SparkMaxGroup.class.getName());
+    private CANSparkMax master;
+    private CANPIDController m_pidController;
+    private CANEncoder m_encoder;
+    private CANSparkMax [] slaves;
 
 
     /**
@@ -17,21 +22,15 @@ public class TalonSRXGroup implements SpeedController {
      * @param master the master motor. All other motors will follow this one.
      * @param slaves the slave motors. Follow the master motor.
      */
-    public TalonSRXGroup(WPI_TalonSRX master, WPI_TalonSRX... slaves) {
+    public SparkMaxGroup(CANSparkMax master, CANSparkMax... slaves) {
+        this.slaves = slaves;
         this.master = master;
-
-        master.configContinuousCurrentLimit(20, 0);
-        master.configPeakCurrentLimit(30, 0);
-        master.configPeakCurrentDuration(250, 0);
-        master.enableCurrentLimit(true);
-        master.configOpenloopRamp(0.250, 0);
-        master.configClosedloopRamp(0.250, 0);
-        master.config_kP(0, 0.4, 0);
-        master.config_kI(0, 0.0, 0);
-        master.config_kD(0, 0.0, 0);
-
-        for(WPI_TalonSRX slave : slaves) {
-            slave.follow(master);
+        m_encoder = master.getEncoder();
+        m_pidController = master.getPIDController();
+        master.restoreFactoryDefaults();
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.restoreFactoryDefaults();
         }
     }
 
@@ -42,6 +41,10 @@ public class TalonSRXGroup implements SpeedController {
     @Override
     public void pidWrite(double output) {
         master.pidWrite(output);
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.pidWrite(output);
+        }
     }
 
     /**
@@ -50,8 +53,13 @@ public class TalonSRXGroup implements SpeedController {
      */
     @Override
     public void set(double speed) {
-        master.set(ControlMode.PercentOutput, speed);
+        master.set(speed);
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.set(speed);
+        }
     }
+
 
     /**
      * Common interface for getting the current set speed of the speed controller.
@@ -69,6 +77,10 @@ public class TalonSRXGroup implements SpeedController {
     @Override
     public void setInverted(boolean isInverted) {
         master.setInverted(isInverted);
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.setInverted(isInverted);
+        }
     }
 
     /**
@@ -86,6 +98,10 @@ public class TalonSRXGroup implements SpeedController {
     @Override
     public void disable() {
         master.disable();
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.disable();;
+        }
     }
 
     /**
@@ -94,5 +110,9 @@ public class TalonSRXGroup implements SpeedController {
     @Override
     public void stopMotor() {
         master.stopMotor();
+        for(CANSparkMax slave : slaves) {
+            //slave.follow(master);
+            slave.stopMotor();
+        }
     }
 }

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  * @version 0.0.1
  * Switches the gear mode of the robot
  */
-public class ToggleGearMode extends Command {
+public class ToggleHardStop extends Command {
     private static final Logger LOGGER = Logger.getLogger(ToggleGearMode.class.getName());
 
     /**
@@ -17,8 +17,7 @@ public class ToggleGearMode extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.getDriveSubsystem().toggleGearMode();
-        //LOGGER.info(String.format("GearMode has been toggled to %s!", Robot.getDriveSubsystem().getGearMode()));
+        Robot.getStopSubsystem().toggleStopSolenoid();
     }
 
     @Override

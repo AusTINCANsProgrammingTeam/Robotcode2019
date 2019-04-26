@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.team2158.robot.Robot;
 
 import java.util.logging.Logger;
-
+//this isnt used - delete?
 public class StopPivot extends Command {
     private static final Logger LOGGER = Logger.getLogger(StopPivot.class.getName());
 

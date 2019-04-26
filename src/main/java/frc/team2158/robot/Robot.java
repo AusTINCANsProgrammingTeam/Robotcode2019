@@ -1,29 +1,32 @@
 package frc.team2158.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.Joystick.ButtonType;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2158.robot.command.drive.DriveMode;
 import frc.team2158.robot.command.drive.OperatorControl;
 import frc.team2158.robot.command.drive.ToggleGearMode;
+import frc.team2158.robot.command.drive.ToggleHardStop;
 import frc.team2158.robot.command.intake.*;
-import frc.team2158.robot.command.lift.MoveLift;
-import frc.team2158.robot.command.lift.MoveLiftDown;
-import frc.team2158.robot.command.lift.MoveLiftUp;
+import edu.wpi.first.networktables.EntryListenerFlags;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2158.robot.subsystem.drive.DriveSubsystem;
-import frc.team2158.robot.subsystem.drive.GearMode;
-import frc.team2158.robot.subsystem.drive.TalonSRXGroup;
+import frc.team2158.robot.subsystem.drive.StopSubsystem;
+import frc.team2158.robot.subsystem.drive.StopSubsystem.StopDirection;
 import frc.team2158.robot.subsystem.intake.IntakeSubsystem;
 import frc.team2158.robot.subsystem.lift.Arm;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
+import frc.team2158.robot.subsystem.lift.PistonLiftSubsystem;
+import frc.team2158.robot.subsystem.lift.SelfLift;
+import frc.team2158.robot.command.lift.*;
+
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import frc.team2158.robot.subsystem.lift.Arm;
+import edu.wpi.cscore.UsbCamera;
+import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
+import frc.team2158.robot.subsystem.lift.SelfLift;
 
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
@@ -36,29 +39,35 @@ import java.util.logging.Logger;
  * Initializes the teleOperated code.
  */
 public class Robot extends TimedRobot {
-    private SendableChooser<Double> autoChooser;
-    private CANSparkMax m_motor;
     private static final Logger LOGGER = Logger.getLogger(Robot.class.getName());
     private static final LoggingSystem LOGGING_SYSTEM = LoggingSystem.getInstance();
 
     private static DriveSubsystem driveSubsystem;
-    private static Arm liftSubsystem;
+    private static Arm armSubsystem;
     private static IntakeSubsystem intakeSubsystem;
+    private static StopSubsystem stopSubsystem;
+    private static PistonLiftSubsystem pistonLiftSubsystem;
+    
+     private static SelfLift selfLiftSubsystem;
 
     private static OperatorInterface operatorInterface;
-    private Spark blinkin = new Spark(6);
-    private static final int deviceID = 9;
+    private NetworkTableEntry ratioEntry;//why is the networktable stuff not used
+    private NetworkTable table;
+    public static double ratio = -1;
     
+    //this runs after robotinit
     @Override
     public void disabledInit() {
-        liftSubsystem.resetPos();
-        SmartDashboard.putBoolean("UpLimit", liftSubsystem.getUpLimit());
-        SmartDashboard.putBoolean("DownLimit", liftSubsystem.getDownLimit());
+        //will this ^^^ be run before the match starts? 
+        //because there may be issues if it tries to reset itself while being locked by a solenoid
+        SmartDashboard.putBoolean("UpLimit", armSubsystem.getUpLimit());
+        SmartDashboard.putBoolean("DownLimit", armSubsystem.getDownLimit());
     }
+
     @Override
     public void disabledPeriodic(){
-        SmartDashboard.putBoolean("UpLimit", liftSubsystem.getUpLimit());
-        SmartDashboard.putBoolean("DownLimit", liftSubsystem.getDownLimit());
+        SmartDashboard.putBoolean("UpLimit", armSubsystem.getUpLimit());
+        SmartDashboard.putBoolean("DownLimit", armSubsystem.getDownLimit());
     }
 
     /**
@@ -66,61 +75,60 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        // Initialize the auto chooser system
-        autoChooser = new SendableChooser<>();
-        autoChooser.addObject("0.0", 0.0);
-        autoChooser.addObject("0.25", 0.25);
-        autoChooser.addObject("0.50", 0.5);
-        autoChooser.addObject("0.75", 0.75);
-        autoChooser.addDefault("1.0", 1.0);
-        autoChooser.addObject("1.25", 1.25);
-        autoChooser.addObject("1.50", 1.5);
-        autoChooser.addObject("1.75", 1.75);
-        autoChooser.addObject("2.0", 2.0);
-        autoChooser.addObject("2.25", 2.25);
-        autoChooser.addObject("2.50", 2.50);
-        autoChooser.addObject("2.75", 2.75);
-        autoChooser.addObject("3.0", 3.5);
-        /*
-            ----TODO THIS IS WHAT YOU COPY/PASTE TO ADD MORE DATA----
-            autoChooser.addObject("#.#", #.#);
-         */
-        SmartDashboard.putData("Time to run forward in auto!", autoChooser);
+        
 
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+        camera1.setResolution(320, 240);
+        //UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+        //camera2.setResolution(320, 240);
         // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
-                new TalonSRXGroup(
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_1), // This motor is the master for the left side.
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_2),
-                        new WPI_TalonSRX(RobotMap.LEFT_MOTOR_3)
-                ),
-                new TalonSRXGroup(
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_1), // This motor is the master for the right side.
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_2),
-                        new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_3)
-                ),
-                new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
-                        RobotMap.GEARBOX_REVERSE_CHANNEL)
-        );
+            new SparkMaxGroup(
+                new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
+                new CANSparkMax(RobotMap.LEFT_MOTOR_2, MotorType.kBrushless),
+                new CANSparkMax(RobotMap.LEFT_MOTOR_3, MotorType.kBrushless)
+        ),
+        new SparkMaxGroup(
+                new CANSparkMax(RobotMap.RIGHT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the right side.
+                new CANSparkMax(RobotMap.RIGHT_MOTOR_2, MotorType.kBrushless),
+                new CANSparkMax(RobotMap.RIGHT_MOTOR_3, MotorType.kBrushless)
+        ),
+        new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
+                RobotMap.GEARBOX_REVERSE_CHANNEL),
+        //dont change the pcm address 
+        new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_2_FORWARD_CHANNEL, RobotMap.GEARBOX_2_REVERSE_CHANNEL)
+);
+
+
+        
         LOGGER.info("Drive Subsystem Initialized properly!");
-        // Initialize the lift subsystem.
-        liftSubsystem = new Arm(
-            m_motor = new CANSparkMax(deviceID, MotorType.kBrushless)
-           
-               //new SpeedControllerGroup(
-                 //       new Spark(RobotMap.LIFT_MOTOR_1),
-                   //     new Spark(RobotMap.LIFT_MOTOR_2),
-                     //   new Spark(RobotMap.LIFT_MOTOR_3)
-               // ),
-               // true
+        
+        pistonLiftSubsystem = new PistonLiftSubsystem(
+                new DoubleSolenoid(RobotMap.PCM_2_ADDRESS, RobotMap.FOWARD_PISTON_1_FOWARD, RobotMap.FOWARD_PISTON_1_REVERSE), 
+
+                new DoubleSolenoid(RobotMap.PCM_2_ADDRESS, RobotMap.FOWARD_PISTON_2_FOWARD, RobotMap.FOWARD_PISTON_2_REVERSE), 
+
+                new DoubleSolenoid(RobotMap.PCM_2_ADDRESS, RobotMap.BACK_PISTON_1_FOWARD, RobotMap.BACK_PISTON_1_RESVERSE), 
+
+                new DoubleSolenoid(RobotMap.PCM_2_ADDRESS, RobotMap.BACK_PISTON_2_FOWARD, RobotMap.BACK_PISTON_2_REVERSE)
+                );
+
+                SmartDashboard.putBoolean("PistonClimb", false);
+                //make sure pcm board is configured to >>2<<
+                //PRESS 9 FIRST TO SET THE CLIMB - 3 IS FORWARD PISTONS - 1 IS BACKWARD PISTONS
+        // Initialize the arm subsystem.
+        armSubsystem = new Arm(RobotMap.ARM_MOTOR
+            //new CANSparkMax(RobotMap.ARM_MOTOR, MotorType.kBrushless)
         );
-        LOGGER.info("Lift Subsystem Initialized properly!");
+       /* selfLiftSubsystem = new SelfLift(RobotMap.SELF_LIFT_MOTOR_1, RobotMap.SELF_LIFT_MOTOR_2);
+        LOGGER.info("Arm Subsystem Initialized properly!");*/
+        stopSubsystem = new StopSubsystem(
+            new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.HARD_STOP_FOWARD, RobotMap.HARD_STOP_BACK)
+        );
         // Initialize the intake subsystem.
         intakeSubsystem = new IntakeSubsystem(
                 new Spark(RobotMap.LEFT_INTAKE_MOTOR),
-                new Spark(RobotMap.RIGHT_INTAKE_MOTOR),
-                new Spark(RobotMap.PIVOT_INTAKE_MOTOR),
-                new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.INTAKE_SOLENOID_1, RobotMap.INTAKE_SOLENOID_2)
+                new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.INTAKE_SOLENOID_FOWARD, RobotMap.INTAKE_SOLENOID_REVERSE)
         );
         LOGGER.info("Intake Subsystem Initialized properly!");
         // Initialize the operator interface.
@@ -128,6 +136,10 @@ public class Robot extends TimedRobot {
 
 
         LOGGER.info("Robot initialization completed.");
+        
+        //raise the hard stop
+        //stopSubsystem.raiseStop(StopDirection.UP); //do we need to run this? it initializes with the value already up
+    
     }
 
     /**
@@ -136,23 +148,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        timer.reset();
-        timer.start();
+        armSubsystem.resetPos(); 
+        setup();
     }
 
     @Override
     public void autonomousPeriodic() {
-        if(timer.get() < 2){
-            getDriveSubsystem().arcadeDrive(-0.75, 0);
-        } else {
-            getDriveSubsystem().arcadeDrive(0, 0);
-        }
-        if(timer.get() < 0.5){
-            //getIntakeSubsystem().pivotIntake(IntakeSubsystem.PivotDirection.DOWN);
-        } else {
-
-            //getIntakeSubsystem().stopPivot();
-        }
+        periodic();
     }
 
     public static DriveSubsystem getDriveSubsystem() {
@@ -162,15 +164,30 @@ public class Robot extends TimedRobot {
         throw new RuntimeException("Drive subsystem has not yet been initialized!");
     }
 
+    public static PistonLiftSubsystem getPistonLiftSubsystem(){
+        if(pistonLiftSubsystem != null){
+            return pistonLiftSubsystem;
+        }
+        throw new RuntimeException("Piston subsystem has not yet been initialized");
+    }
+    
+
     /**
      * Returns the instance of the lift subsystem.
      * @return the instance of the lift subsystem.
      */
     public static Arm getLiftSubsystem() {
-        if(liftSubsystem != null) {
-            return liftSubsystem;
+        if(armSubsystem != null) {
+            return armSubsystem;
         }
         throw new RuntimeException("Lift subsystem has not yet been initialized!");
+    }
+
+    public static SelfLift getSelfLiftSubsystem() {
+        if(selfLiftSubsystem!= null) {
+            return selfLiftSubsystem;
+        }
+        throw new RuntimeException("Self Lift subsystem has not yet been initialized!");
     }
 
     /**
@@ -182,6 +199,13 @@ public class Robot extends TimedRobot {
             return intakeSubsystem;
         }
         throw new RuntimeException("Intake subsystem has not yet been initialized!");
+    }
+
+    public static StopSubsystem getStopSubsystem(){
+        if(stopSubsystem != null){
+            return stopSubsystem;
+        }
+        throw new RuntimeException("Stop susbsystem has not been initialized!");
     }
 
     /**
@@ -199,79 +223,46 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
 
         LOGGER.info("Teleop Init!");
-        
+        setup();
+    }
 
-        operatorInterface.bindButton("buttonRB", OperatorInterface.ButtonMode.WHILE_HELD, new Intake(),1);
-        operatorInterface.bindButton("buttonRT", OperatorInterface.ButtonMode.WHILE_HELD, new Outtake(), 1);
-        operatorInterface.bindButton("button2", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 1);
-        operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftUp(), 1);
-        operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
-       // operatorInterface.bindButton("buttonRB", OperatorInterface.ButtonMode.WHILE_HELD, new MoveLift(LiftSubsystem.Direction.UP, LiftSubsystem.DEFAULT_LIFT_UP_SPEED));
-        //operatorInterface.bindButton("buttonRT", OperatorInterface.ButtonMode.WHILE_HELD, new MoveLift(LiftSubsystem.Direction.DOWN, LiftSubsystem.DEFAULT_LIFT_DOWN_SPEED));
-        //operatorInterface.bindButton("buttonX", OperatorInterface.ButtonMode.WHILE_HELD, new CounterClockwise(), 1);
-        //operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.WHILE_HELD, new Clockwise(), 1);
-        operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
-        operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
-        operatorInterface.bindButton("buttonA", OperatorInterface.ButtonMode.WHEN_PRESSED, new ToggleGearMode(), 0);
-        //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHILE_HELD, new PivotDown(), 1);
-        //operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHILE_HELD, new PivotUp(), 1);
-        
-        Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
-    // Stretch Goal: Make the button bindings come from an xml/json config.
-    //how would we implement such a system?
-}
     /**
      * Runs the TeleOp Periodic code.
      */
-    private static double solid_red = 0.61;
-    private static double solid_blue = 0.87;
-    private static double light_chase_red = -0.31;
-    private static double light_chase_blue = -0.29;
-    private static double shot_red = -0.85;
-    private static double shot_blue = -0.83;
-    private static double fast_rainbow = -0.57;
-    private static double solid_yellow = 0.69;
-    private static double solid_orange = 0.63;
-    private static double color1_strobe = 0.15;
-    private static double color2_strobe = 0.35;
-    private static double strobe_red = -0.11;
-    private static double strobe_blue = -0.9;
-    private static double breath_red = -0.17;
-    private static double breath_blue = -0.15;
+
 
     @Override
     public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-        GearMode gearMode = getDriveSubsystem().getGearMode();
-
-        switch(getIntakeSubsystem().getSolenoidState()) {
-            case kForward: //intake is closed - dont strobe
-                if(gearMode.equals(GearMode.HIGH)){
-                    blinkin.set(solid_red);
-                } else if(gearMode.equals(GearMode.LOW)) {
-                    blinkin.set(solid_blue);
-                } else {
-                    blinkin.set(0.9);
-                }
-                break;
-            case kReverse: //intake is open - strobe
-                if(gearMode.equals(GearMode.HIGH)){
-                    blinkin.set(breath_red);
-                } else if(gearMode.equals(GearMode.LOW)) {
-                    blinkin.set(breath_blue);
-                } else {
-                    blinkin.set(0.9);
-                }
-                break;
-            case kOff:
-
-                break;
-        }
-        SmartDashboard.putNumber("SetPoint", liftSubsystem.getRotations());
-       SmartDashboard.putNumber("ProcessVariable", liftSubsystem.getPos());
-
-
+        periodic();
     }
-    private static Timer timer = new Timer();
 
+    public void periodic(){
+        Scheduler.getInstance().run();
+        SmartDashboard.putNumber("SetPoint", armSubsystem.getRotations());
+        SmartDashboard.putNumber("ProcessVariable", armSubsystem.getPos());
+    }
+
+    public void setup(){
+        operatorInterface.bindButton("buttonRB", OperatorInterface.ButtonMode.WHILE_HELD, new Intake(),1);
+        operatorInterface.bindButton("buttonRT", OperatorInterface.ButtonMode.WHILE_HELD, new Outtake(), 1);
+        operatorInterface.bindButton("button2", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleHatchSolenoid(), 1);
+        //operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftUp(), 1);
+        //operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.WHEN_PRESSED, new MoveLiftDown(), 1);
+        operatorInterface.bindButton("buttonLB", OperatorInterface.ButtonMode.WHILE_HELD, new IntakeHalfSpeed(), 1);
+        operatorInterface.bindButton("buttonLT", OperatorInterface.ButtonMode.WHILE_HELD, new OuttakeHalfSpeed(), 1);
+        operatorInterface.bindButton("buttonB", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleGearMode(), 0);
+        //operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift(), 1);
+        //operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new RunSelfLift2nd(), 1);
+        //operatorInterface.bindButton("buttonStart", OperatorInterface.ButtonMode.WHEN_PRESSED, new ChangeLimit(), 1);
+        operatorInterface.bindButton("button3", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleFowardPistons(), 1);
+        operatorInterface.bindButton("button1", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleBackPistons(), 1);
+        operatorInterface.bindButton("buttonBack", OperatorInterface.ButtonMode.WHEN_PRESSED, new EnablePistons(), 1);
+        operatorInterface.bindButton("button4", OperatorInterface.ButtonMode.TOGGLE_WHEN_PRESSED, new ToggleHardStop(), 1);
+
+
+        
+        Scheduler.getInstance().add(new OperatorControl(DriveMode.ARCADE));
+        
+        //getStopSubsystem().raiseStop(StopDirection.UP);
+        }
 }
