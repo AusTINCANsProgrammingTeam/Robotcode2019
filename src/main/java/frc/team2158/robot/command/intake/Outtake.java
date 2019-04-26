@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 /**
  * @author William Blount
  * @version 0.0.1
- * Runs the intake wheels to eject the ball.
+ * Runs the intake wheels to eject the cube.
  */
 public class Outtake extends Command {
     private static final Logger LOGGER = Logger.getLogger(Outtake.class.getName());
@@ -27,7 +27,7 @@ public class Outtake extends Command {
     @Override
     protected void initialize() {
         Robot.getIntakeSubsystem().runIntake(IntakeSubsystem.IntakeDirection.OUT);
-        //LOGGER.info("Outtake is initializing!");
+        LOGGER.info("Outtake is initializing!");
 
     }
 

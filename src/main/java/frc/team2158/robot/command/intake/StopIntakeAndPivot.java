@@ -5,13 +5,13 @@ import frc.team2158.robot.Robot;
 
 import java.util.logging.Logger;
 
-public class StopPivot extends Command {
-    private static final Logger LOGGER = Logger.getLogger(StopPivot.class.getName());
+public class StopIntakeAndPivot extends Command {
+    private static final Logger LOGGER = Logger.getLogger(StopIntakeAndPivot.class.getName());
 
     /**
      * Instantiates the command
      */
-    public StopPivot() {
+    public StopIntakeAndPivot() {
         requires(Robot.getIntakeSubsystem());
     }
 
@@ -21,6 +21,7 @@ public class StopPivot extends Command {
     @Override
     protected void initialize() {
         Robot.getIntakeSubsystem().stopPivot();
+        Robot.getIntakeSubsystem().stopIntake();
     }
 
     @Override

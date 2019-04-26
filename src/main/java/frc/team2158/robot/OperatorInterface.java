@@ -38,13 +38,12 @@ public class OperatorInterface {
             put("buttonY", new JoystickButton(driveController, 4));
             put("buttonLB", new JoystickButton(driveController, 5));
             put("buttonRB", new JoystickButton(driveController, 6));
-            //put("buttonLT", new JoystickButton(driveController, 7));
+           // put("buttonLT", new JoystickButton(driveController, 7));
             //put("buttonRT", new JoystickButton(driveController, 8));
             put("buttonBack", new JoystickButton(driveController, 7));
             put("buttonStart", new JoystickButton(driveController, 8));
             put("buttonLeftJoystick", new JoystickButton(driveController, 9));
             put("buttonRightJoystick", new JoystickButton(driveController, 10));
-            put("buttonRightArrow", new JoystickButton(driveController, 0));
             //left joystick X axis is 0, Y axis 1
             //Right joy stick X axis is 4, Y axis 5
         }};
