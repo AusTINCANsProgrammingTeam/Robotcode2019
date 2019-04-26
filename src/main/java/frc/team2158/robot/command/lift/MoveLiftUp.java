@@ -3,6 +3,7 @@ package frc.team2158.robot.command.lift;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2158.robot.Robot;
 import frc.team2158.robot.subsystem.lift.Arm;
+import frc.team2158.robot.subsystem.lift.Arm.Direction;
 
 import java.util.logging.Logger;
 /**
@@ -10,9 +11,9 @@ import java.util.logging.Logger;
  * @version 0.0.1
  * Changes the lift direction and speed.
  */
-public class RunSelfLift extends Command {
+public class MoveLiftUp extends Command {
     private static final Logger LOGGER = Logger.getLogger(MoveLift.class.getName());
-    private Arm.Direction direction;
+    private Arm.Direction direction = Direction.UP;
     private double speed;
 
     /**
@@ -20,8 +21,8 @@ public class RunSelfLift extends Command {
      * @param direction Either UP or DOWN
      * @param speed Speed of lift
      */
-    public RunSelfLift() {
-        requires(Robot.getSelfLiftSubsystem());
+    public MoveLiftUp() {
+        requires(Robot.getLiftSubsystem());
     }
 
     /**
@@ -29,13 +30,14 @@ public class RunSelfLift extends Command {
      */
     @Override
     protected void initialize() {
+        //Robot.getLiftSubsystem().moveLift(direction, speed);
     }
     /**
      * Runs the command
      */
     @Override
     protected void execute() {
-        Robot.getSelfLiftSubsystem().selfLift();
+        Robot.getLiftSubsystem().moveLiftPos(direction);;
     }
 
     @Override

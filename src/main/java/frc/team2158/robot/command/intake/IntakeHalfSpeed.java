@@ -19,7 +19,7 @@ public class IntakeHalfSpeed extends Command {
      */
     public IntakeHalfSpeed() {
         requires(Robot.getIntakeSubsystem());
-        //LOGGER.info("Intake Command Initialized.");
+        LOGGER.info("Intake Command Initialized.");
     }
 
     /**

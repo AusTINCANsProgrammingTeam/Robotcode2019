@@ -27,7 +27,7 @@ public class Arm extends Subsystem {
 
     public enum Direction {UP, DOWN}
 
-    private CANSparkMax liftSpeedController;
+    private SpeedController liftSpeedController;
     public static double DEFAULT_LIFT_UP_SPEED = 1.0;
     public static double DEFAULT_LIFT_DOWN_SPEED = 0.75;
     private CANPIDController m_pidController;
@@ -35,24 +35,19 @@ public class Arm extends Subsystem {
     private CANDigitalInput upLimit;
     private CANDigitalInput downLimit;
     private static double rotations;
-    private boolean lift = false;
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
-    public double topLimit = 20;
-    public double bottomLimit = -27;
-    public boolean armRestricted = true;
     /**
      * Initializes our Lift subsystem.
      * @param controller controller to be initialized.
      * @param inverted If the lift is inverted or not
      */
-    public Arm(int deviceId) {
-        this.liftSpeedController = new CANSparkMax(deviceId, MotorType.kBrushless);
-        liftSpeedController.restoreFactoryDefaults();
-        m_pidController = liftSpeedController.getPIDController();
-        upLimit = liftSpeedController.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-        downLimit = liftSpeedController.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+    public Arm(CANSparkMax controller) {
+        this.liftSpeedController = controller;
+        m_pidController = controller.getPIDController();
+        upLimit = controller.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+        downLimit = controller.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
         // Encoder object created to display position values
-        m_encoder = liftSpeedController.getEncoder();
+        m_encoder = controller.getEncoder();
         rotations = m_encoder.getPosition();
         /*if (rotations < -0.45)
         {
@@ -61,13 +56,13 @@ public class Arm extends Subsystem {
         m_pidController.setReference(rotations, ControlType.kPosition);*/
     
         // PID coefficients
-        kP = .1;
+        kP = 1; 
         kI = 1e-4;
-        kD = 1.5; 
+        kD = 1; 
         kIz = 0; 
         kFF = 0; 
-        kMaxOutput = 5; 
-        kMinOutput = -.5;
+        kMaxOutput = 1; 
+        kMinOutput = -1;
     
         // set PID coefficients
         m_pidController.setP(kP);
@@ -97,6 +92,7 @@ public class Arm extends Subsystem {
        
     
        // liftSpeedController.setInverted(inverted);
+        LOGGER.info("Lift subsystem initialization complete!");
     }
     /**
      * Moves the lift.
@@ -104,31 +100,41 @@ public class Arm extends Subsystem {
      * @param speed Speed specified.
      */
     public void moveLift() {
-                if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) < -.15 && upLimit.get() == false && !armRestricted){
-                    if(rotations < topLimit){
-                         rotations = rotations + .4 * Math.abs(Robot.getOperatorInterface().getOperatorController().getRawAxis(1));
-                    }                   
-                    //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
-                    //LOGGER.warning(rotations + "");
+                if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) < -.15){
+                    if(rotations < 120 && upLimit.get() == false){
+                         rotations = rotations + 1.05;
+                    }
+                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    LOGGER.warning("moveLift stick Up");
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
-                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(1) > .15 && downLimit.get() == false && !armRestricted){
-                    if(rotations > bottomLimit){
-                        rotations = rotations - .4 * Math.abs(Robot.getOperatorInterface().getOperatorController().getRawAxis(1));
+                else if(Robot.getOperatorInterface().getOperatorController().getRawAxis(3) > .15){
+                    if(rotations > 0 && downLimit.get() == false){
+                        rotations = rotations - 1.05;
                     }
-                    //LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
+                    LOGGER.warning(Double.toString(Robot.getOperatorInterface().getOperatorController().getRawAxis(3)));
                     m_pidController.setReference(rotations, ControlType.kPosition);
                 }
     }
+    
+    public void moveLiftPos(Direction direction){
+        switch(direction){
+            case UP:
+                if(upLimit.get() == false){
+                rotations = 120;
+                m_pidController.setReference(rotations, ControlType.kPosition);
+                LOGGER.warning("moveLiftPos Up");
+            }
+                break;
+            case DOWN:
+                if(downLimit.get() == false){
+                rotations = 0;
+                m_pidController.setReference(rotations, ControlType.kPosition);
+                LOGGER.warning("moveLiftPos Down");
+            }
+                break;
 
-    public void changeBottomLimit(){
-        if(lift == false){
-            bottomLimit = -37;
-            m_pidController.setOutputRange(-1, 1);
-            liftSpeedController.setSmartCurrentLimit(80);
-            lift = true;
         }
-
     }
     /**
      * Stops the lift by setting the speed to zero.
@@ -138,10 +144,10 @@ public class Arm extends Subsystem {
     }
 
     public void resetPos(){
-       m_encoder.setPosition(0);
        m_pidController.setReference(0, ControlType.kPosition);
        rotations = 0;
-       //LOGGER.warning("encoderPos: "+ Double.toString(m_encoder.getPosition()));
+       m_encoder.setPosition(0);
+       LOGGER.warning("encoderPos: "+ Double.toString(m_encoder.getPosition()));
     }
 
     public double getPos(){
@@ -162,21 +168,8 @@ public class Arm extends Subsystem {
         return upLimit.get();
     }
 
-    public boolean getDownLimit(){
-        return downLimit.get();
-    }
-
-    public void restrictArmMotor(boolean hardStopUp)
+    public boolean getDownLimit()
     {
-        if (hardStopUp)
-        {
-            armRestricted = true;
-            m_pidController.setOutputRange(0, 0);
-        }
-        else
-        {
-            armRestricted = false;
-            m_pidController.setOutputRange(-.5, .5);
-        }
+        return downLimit.get();
     }
 }

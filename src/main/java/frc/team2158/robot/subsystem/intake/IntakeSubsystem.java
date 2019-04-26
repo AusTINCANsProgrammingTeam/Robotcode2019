@@ -3,7 +3,7 @@ package frc.team2158.robot.subsystem.intake;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2158.robot.command.intake.StopIntake;
+import frc.team2158.robot.command.intake.StopIntakeAndPivot;
 
 import java.util.logging.Logger;
 /**
@@ -26,6 +26,7 @@ public class IntakeSubsystem extends Subsystem {
     private static final double DEFAULT_PIVOT_SPEED = 0.75;
 
     private SpeedController leftSpeedController;
+    private SpeedController rightSpeedController;
     private SpeedController pivotSpeedController;
     private DoubleSolenoid solenoid;
 
@@ -36,10 +37,14 @@ public class IntakeSubsystem extends Subsystem {
      * @param pivotSpeedController Speed Controller
      * @param solenoid Solenoid to be used.
      */
-    public IntakeSubsystem(SpeedController intakeSpeedController,DoubleSolenoid solenoid) {
-        this.leftSpeedController = intakeSpeedController;
+    public IntakeSubsystem(SpeedController leftSpeedController, SpeedController rightSpeedController,
+                           SpeedController pivotSpeedController, DoubleSolenoid solenoid) {
+        this.leftSpeedController = leftSpeedController;
+        this.rightSpeedController = rightSpeedController;
+        this.pivotSpeedController = pivotSpeedController;
         this.solenoid = solenoid;
         setDoubleSolenoidState(DoubleSolenoid.Value.kForward);
+        LOGGER.info("Intake subsystem initialization complete!");
     }
 
     /**
@@ -50,9 +55,11 @@ public class IntakeSubsystem extends Subsystem {
         switch(direction) {
             case IN:
                 leftSpeedController.set(-DEFAULT_INTAKE_SPEED_IN);
+                rightSpeedController.set(DEFAULT_INTAKE_SPEED_IN);
                 break;
             case OUT:
                 leftSpeedController.set(DEFAULT_INTAKE_SPEED_OUT);
+                rightSpeedController.set(-DEFAULT_INTAKE_SPEED_OUT);
                 break;
 
         }
@@ -60,10 +67,10 @@ public class IntakeSubsystem extends Subsystem {
     public void runIntakeHalfSpeed(IntakeDirection direction){
         switch(direction){
             case IN:
-                leftSpeedController.set(-DEFAULT_INTAKE_SPEED*.75);
+                leftSpeedController.set(-DEFAULT_INTAKE_SPEED/2);
                 break;
             case OUT:
-                leftSpeedController.set(DEFAULT_INTAKE_SPEED*.625);
+                leftSpeedController.set(DEFAULT_INTAKE_SPEED/2);
                 break;
         }
     }
@@ -74,6 +81,7 @@ public class IntakeSubsystem extends Subsystem {
      */
     public void stopIntake() {
         leftSpeedController.set(0.0);
+        rightSpeedController.set(0.0);
     }
 
     public void stopIntakeAndPivot(){
@@ -134,6 +142,6 @@ public class IntakeSubsystem extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new StopIntake());
+        setDefaultCommand(new StopIntakeAndPivot());
     }
 }
