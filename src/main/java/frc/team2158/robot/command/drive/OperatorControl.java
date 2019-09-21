@@ -6,6 +6,9 @@ import frc.team2158.robot.OperatorInterface;
 import frc.team2158.robot.Robot;
 import frc.team2158.robot.RobotMap;
 import frc.team2158.robot.subsystem.drive.DriveSubsystem;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Waypoint;
+import jaci.pathfinder.followers.EncoderFollower;
 
 import java.util.logging.Logger;
 //gets called every time teleop init, calls .execute every cycle
@@ -21,7 +24,8 @@ public class OperatorControl extends Command {
     private DriveMode driveMode;
     private DriveSubsystem driveSubsystem;
     private Joystick joystick;
-
+    private EncoderFollower left;
+    private EncoderFollower right;
     /**
      * Instantiates the operator control
      * @param driveMode either ARCADE or TANK
@@ -30,6 +34,10 @@ public class OperatorControl extends Command {
         this.driveMode = driveMode;
         this.driveSubsystem = Robot.getDriveSubsystem();
         this.joystick = Robot.getOperatorInterface().getDriveController();
+        if (driveMode == DriveMode.PATHFINDER) {
+            left = new EncoderFollower(modifier.getLeftTrajectory());
+            right = new EncoderFollower(modifier.getRightTrajectory());
+        }
     }
 
     @Override
@@ -41,6 +49,9 @@ public class OperatorControl extends Command {
             case ARCADE:
                 driveSubsystem.arcadeDrive(-joystick.getRawAxis(1), -joystick.getRawAxis(4));
                 break;
+            case PATHFINDER:
+                driveSubsystem.tankDrive(left.calculate(SRX.getEncPosition()));
+            
         }
     }
 
