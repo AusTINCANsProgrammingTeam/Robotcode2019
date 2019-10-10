@@ -15,6 +15,8 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANDigitalInput;
 import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
+import com.revrobotics.*;
+
 
 import java.util.logging.Logger;
 /**
@@ -26,6 +28,7 @@ public class Arm extends Subsystem {
     private static final Logger LOGGER = Logger.getLogger(Arm.class.getName());
 
     public enum Direction {UP, DOWN}
+    
 
     private CANSparkMax liftSpeedController;
     public static double DEFAULT_LIFT_UP_SPEED = 1.0;

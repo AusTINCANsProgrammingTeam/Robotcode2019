@@ -1,5 +1,6 @@
 package frc.team2158.robot.subsystem.drive;
 
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -11,6 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.logging.Logger;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 /**
  * @author William Blount
  * @version 0.0.1
@@ -23,6 +27,16 @@ public class DriveSubsystem extends Subsystem {
     private DoubleSolenoid gearboxSolenoid;
     private DoubleSolenoid gearboxSolenoid2;
     private boolean held;
+    private CANSparkMax left1;
+    private CANSparkMax left2;
+    private CANSparkMax left3;
+    private CANSparkMax right1;
+    private CANSparkMax right2;
+    private CANSparkMax right3;
+    private SparkMaxGroup leftMotorGroup;
+    private SparkMaxGroup rightMotorGroup;
+    private boolean[] leftMotorCurrentTest;
+    private boolean[] rightMotorCurrentTest;
 
     /**
      * This initializes the drive subsystem.
@@ -30,9 +44,19 @@ public class DriveSubsystem extends Subsystem {
      * @param rightSpeedController the speedController on the right to be initialized.
      * @param gearboxSolenoid Solenoid to be initialized.
      */
-    public DriveSubsystem(SpeedController leftSpeedController, SpeedController rightSpeedController,
+    public DriveSubsystem(int leftMotor1, int leftMotor2, int leftMotor3, int rightMotor1, int rightMotor2, int rightMotor3,
                           DoubleSolenoid gearboxSolenoid, DoubleSolenoid gearboxSolenoid2) {
-        this.differentialDrive = new DifferentialDrive(leftSpeedController, rightSpeedController);
+
+        this.differentialDrive = new DifferentialDrive(
+            leftMotorGroup = new SparkMaxGroup(
+                    left1 = new CANSparkMax(leftMotor1, MotorType.kBrushless),
+                    left2 = new CANSparkMax(leftMotor2, MotorType.kBrushless),
+                    left3 = new CANSparkMax(leftMotor3, MotorType.kBrushless)),
+            rightMotorGroup = new SparkMaxGroup(
+                right1 = new CANSparkMax(rightMotor1, MotorType.kBrushless), 
+                right2 = new CANSparkMax(rightMotor2, MotorType.kBrushless),
+                right3 = new CANSparkMax(rightMotor3, MotorType.kBrushless))
+            );
         //differentialDrive.setSafetyEnabled(false);
         this.gearboxSolenoid = gearboxSolenoid;
         this.gearboxSolenoid2 = gearboxSolenoid2;
@@ -54,7 +78,7 @@ public class DriveSubsystem extends Subsystem {
      */
     public void arcadeDrive(double velocity, double heading) {
       
-        differentialDrive.arcadeDrive(velocity, heading * .7, true);
+        differentialDrive.arcadeDrive(velocity, heading * .75, true);
     }
 
     /**
@@ -72,6 +96,32 @@ public class DriveSubsystem extends Subsystem {
     public void setGearMode(DoubleSolenoid.Value state) {
         gearboxSolenoid.set(state);
         gearboxSolenoid2.set(state);
+    }
+
+    public void checkSubsystem(){
+        leftMotorGroup.set(.5);
+        rightMotorGroup.set(.5);
+        double[] leftGroup = leftMotorGroup.getCurrent();
+        double[] rightGroup = rightMotorGroup.getCurrent();
+        leftMotorGroup.set(0);
+        rightMotorGroup.set(0);
+        
+        for(int i = 0; i < leftGroup.length; i++){
+            if(leftGroup[i] < 30){
+                leftMotorCurrentTest[i] = false;
+                
+            }
+            else{leftMotorCurrentTest[i] = true;}
+        }
+        for(int j = 0; j < rightGroup.length; j++){
+            if(rightGroup[j] < 30){
+                rightMotorCurrentTest[j] = false;
+            }
+            else{rightMotorCurrentTest[j] = true;}
+        }
+        
+
+
     }
 
     /**
@@ -99,5 +149,14 @@ public class DriveSubsystem extends Subsystem {
     @Override
     protected void initDefaultCommand() {
         held = false;
+    }
+
+    public void checkDriveSubsystem(){
+
+        //check for motor current
+        ////////
+        //check for 
+        
+
     }
 }

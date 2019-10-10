@@ -28,6 +28,8 @@ import edu.wpi.cscore.UsbCamera;
 import frc.team2158.robot.subsystem.drive.SparkMaxGroup;
 import frc.team2158.robot.subsystem.lift.SelfLift;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Logger;
 //TODO Rename some classes <- Billy's job.
 //TODO Lua macros
@@ -47,6 +49,9 @@ public class Robot extends TimedRobot {
     private static IntakeSubsystem intakeSubsystem;
     private static StopSubsystem stopSubsystem;
     private static PistonLiftSubsystem pistonLiftSubsystem;
+    private static SparkMaxGroup leftSparkgroup;
+
+    private static SparkMaxGroup rightSparkGroup;
     
      private static SelfLift selfLiftSubsystem;
 
@@ -83,16 +88,13 @@ public class Robot extends TimedRobot {
         //camera2.setResolution(320, 240);
         // Initialize the drive subsystem.
         driveSubsystem = new DriveSubsystem(
-            new SparkMaxGroup(
-                new CANSparkMax(RobotMap.LEFT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the left side.
-                new CANSparkMax(RobotMap.LEFT_MOTOR_2, MotorType.kBrushless),
-                new CANSparkMax(RobotMap.LEFT_MOTOR_3, MotorType.kBrushless)
-        ),
-        new SparkMaxGroup(
-                new CANSparkMax(RobotMap.RIGHT_MOTOR_1, MotorType.kBrushless), // This motor is the master for the right side.
-                new CANSparkMax(RobotMap.RIGHT_MOTOR_2, MotorType.kBrushless),
-                new CANSparkMax(RobotMap.RIGHT_MOTOR_3, MotorType.kBrushless)
-        ),
+            RobotMap.LEFT_MOTOR_1, // This motor is the master for the left side.
+            RobotMap.LEFT_MOTOR_2,
+            RobotMap.LEFT_MOTOR_3, 
+            RobotMap.RIGHT_MOTOR_1, // This motor is the master for the right side.
+            RobotMap.RIGHT_MOTOR_2, 
+            RobotMap.RIGHT_MOTOR_3,
+        
         new DoubleSolenoid(RobotMap.PCM_ADDRESS, RobotMap.GEARBOX_FORWARD_CHANNEL,
                 RobotMap.GEARBOX_REVERSE_CHANNEL),
         //dont change the pcm address 
@@ -156,6 +158,27 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
         periodic();
     }
+    //populate data in drive subsystem (class)- pass it to robot
+
+    public static void checkDriveSubs() throws IOException {
+        double [] currentLeftMotorValues = leftSparkgroup.getCurrent();
+        double [] currentRightMotorValues = rightSparkGroup.getCurrent();
+        HashMap<String, String> driveResult = new HashMap<>();
+        for(int i = 0; i < currentLeftMotorValues.length; i++){
+            if (currentLeftMotorValues[i] <= 30) {
+
+
+
+            }
+           
+        }
+          
+    }
+
+    public static void writeFile(String name, boolean passed){
+
+    }
+
 
     public static DriveSubsystem getDriveSubsystem() {
         if(driveSubsystem != null) {
@@ -240,6 +263,8 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("SetPoint", armSubsystem.getRotations());
         SmartDashboard.putNumber("ProcessVariable", armSubsystem.getPos());
+        SmartDashboard.putBoolean("UpLimit", armSubsystem.getUpLimit());
+        SmartDashboard.putBoolean("DownLimit", armSubsystem.getDownLimit());
     }
 
     public void setup(){

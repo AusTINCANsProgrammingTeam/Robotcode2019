@@ -14,6 +14,7 @@ public class SparkMaxGroup implements SpeedController {
     private CANPIDController m_pidController;
     private CANEncoder m_encoder;
     private CANSparkMax [] slaves;
+    private double [] motorCurrents;
 
 
     /**
@@ -22,16 +23,28 @@ public class SparkMaxGroup implements SpeedController {
      * @param master the master motor. All other motors will follow this one.
      * @param slaves the slave motors. Follow the master motor.
      */
-    public SparkMaxGroup(CANSparkMax master, CANSparkMax... slaves) {
+    public SparkMaxGroup(CANSparkMax master, CANSparkMax... slaves) { 
         this.slaves = slaves;
         this.master = master;
         m_encoder = master.getEncoder();
         m_pidController = master.getPIDController();
-        master.restoreFactoryDefaults();
-        for(CANSparkMax slave : slaves) {
+        //master.restoreFactoryDefaults();
+        //for(CANSparkMax slave : slaves) {
             //slave.follow(master);
-            slave.restoreFactoryDefaults();
+           // slave.restoreFactoryDefaults();
+        //}
+    }
+
+    public double[] getCurrent(){
+        int i = 0;
+        motorCurrents[i] = master.getOutputCurrent();
+        for(CANSparkMax slave : slaves){
+            i++;
+            motorCurrents[i] = slave.getOutputCurrent();
         }
+
+        return motorCurrents;
+        
     }
 
     /**
@@ -59,6 +72,8 @@ public class SparkMaxGroup implements SpeedController {
             slave.set(speed);
         }
     }
+
+
 
 
     /**

@@ -21,7 +21,6 @@ public class RobotMap {
     public static final int SELF_LIFT_MOTOR_1 = 12;
     public static final int SELF_LIFT_MOTOR_2 = 4;
 
-
     public static final int HARD_STOP_FOWARD = 2;
     public static final int HARD_STOP_BACK = 5;
 
